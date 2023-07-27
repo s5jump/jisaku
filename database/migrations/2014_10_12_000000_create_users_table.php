@@ -15,10 +15,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name','10');
+            $table->string('email','30')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password','100');
+            $table->string('image','100');//https://qiita.com/Sub_Tanabe/items/
+            $table->integer('role')->default(0);
+            $table->tinyInteger('del_flg')->default(0); 
             $table->rememberToken();
             $table->timestamps();
         });
