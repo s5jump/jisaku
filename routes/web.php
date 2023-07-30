@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\RegistrationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+//Route::group(['middleware' => 'auth'],function(){
+
+Route::get('/', [DisplayController::class,'index']);
+
+//投稿詳細
+Route::get('/post/{post}/detail',[DisplayController::class,'postDetail'])->name('post.detail');
+
+//店舗詳細
+Route::get('/shop/{shop}/detail',[DisplayController::class,'shopDetail'])->name('shop.detail');
+
+//新規登録
+//Route::get('/register/')
+
+//店舗新規登録
+//Route::post('/register/',[RegistrationController::class,'shopRegister'])->name('shop.register');
+
+
+
+
+//});

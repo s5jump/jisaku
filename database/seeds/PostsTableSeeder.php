@@ -14,7 +14,14 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            
+            'user_id'=>01,
+            'shop_id'=>01,
+            'title' => 'タイトル１',
+            'review' => 3,
+            'image' => '',
+            'comment' => '',
+            //'created_at' => Carbon::now(),
+            //'updated_at' => Carbon::now(),
         ]);
     }
 }
