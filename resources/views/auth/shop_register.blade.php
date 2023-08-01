@@ -14,7 +14,7 @@
                 @endforeach
               </div>
             @endif
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('shop.register') }}" method="POST">
               @csrf
               <div class="form-group">
                 <label for="name">ユーザー名</label>
@@ -43,6 +43,10 @@
               <div class="form-group">
                 <label for="comment">店舗紹介・メニュー紹介</label>
                 <input type="text" class="form-control" id="comment" name="comment" value="{{ old('comment') }}"/>
+              </div>
+              <div class="form-group">
+                <label for="image">店舗写真</label>
+                <input type="file" class="form-control" id="image" name="image" value="{{ old('image') }}"/>
               </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">登録内容確認</button>

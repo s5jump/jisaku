@@ -14,6 +14,7 @@
                 @endforeach
               </div>
             @endif
+
             <form action="{{ route('register') }}" method="POST">
               @csrf
               <div class="form-group">
@@ -32,8 +33,13 @@
                 <label for="password-confirm">パスワード（確認）</label>
                 <input type="password" class="form-control" id="password-confirm" name="password_confirmation">
               </div>
+              <div class="form-group">
+                <label for="image">アイコン写真</label>
+                <input type="file" class="form-control" id="image" name="image" />
+              </div>
               <div class="text-center">
-                    <!-- ※店舗新規登録はこちらから</a> -->
+                <a href="{{ route('shop.register') }}">※店舗管理者はこちらから</a>
+              </div>
                 </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">登録内容確認</button>

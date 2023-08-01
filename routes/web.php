@@ -26,11 +26,18 @@ Route::get('/post/{post}/detail',[DisplayController::class,'postDetail'])->name(
 //店舗詳細
 Route::get('/shop/{shop}/detail',[DisplayController::class,'shopDetail'])->name('shop.detail');
 
-//新規登録
-//Route::get('/register/')
+//新規登録内容確認
+Route::post('/register/{register}/register',[RegistrationController::class,'registerCheck'])->name('register.check');
+
+
+
+//新規登録完了
 
 //店舗新規登録
-//Route::post('/register/',[RegistrationController::class,'shopRegister'])->name('shop.register');
+Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
+
+//パスワード再設定
+Route::get('/password/email',[RegistrationController::class,'password'])->name('password');
 
 
 

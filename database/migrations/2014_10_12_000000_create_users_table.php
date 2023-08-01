@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email','30')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password','100');
-            $table->string('image','100');//https://qiita.com/Sub_Tanabe/items/
+            $table->string('image','100')->nullable();
             $table->integer('role')->default(0);
             $table->tinyInteger('del_flg')->default(0); 
             $table->rememberToken();
