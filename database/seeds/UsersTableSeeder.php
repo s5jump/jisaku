@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-use Cerbon\Carbon;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,10 +14,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')>insert([
+        DB::table('users')->insert([
             'name' => 'ユーザー１',
             'email' => 'user1@test.com',
-            'password' => Hash::make('password'),
+            'password' => bcrypt('password'),//Hash::make('password'),
             'image' => '',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

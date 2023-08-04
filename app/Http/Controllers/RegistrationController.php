@@ -42,4 +42,25 @@ class RegistrationController extends Controller
     public function password(){
         return view('password');
     }
+
+    //新規投稿
+    public function createPostForm(){
+        return view('create_post',[
+
+        ]);
+    }
+
+    public function createPost(Request $request){
+        $post=new Post;
+
+        $columns=['title','review','comment','image'];
+        foreach($columns as $column){
+            $post->$column=$request->$column;
+        }
+
+        //Auth::user()->post()->save($post);
+        $post->save();
+
+        return redirect('/');
+    }
 }

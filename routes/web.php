@@ -39,7 +39,8 @@ Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->nam
 //パスワード再設定
 Route::get('/password/email',[RegistrationController::class,'password'])->name('password');
 
-
-
+//新規投稿post
+Route::get('/create_post',[RegistrationController::class,'createPostForm'])->name('create.post');
+Route::post('/create_post',[RegistrationController::class,'createPost']);
 
 //});

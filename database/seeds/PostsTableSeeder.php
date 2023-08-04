@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use Cerbon\Carbon;
+use Carbon\Carbon;
 
 class PostsTableSeeder extends Seeder
 {
@@ -20,8 +20,8 @@ class PostsTableSeeder extends Seeder
             'review' => 3,
             'image' => '',
             'comment' => '',
-            //'created_at' => Carbon::now(),
-            //'updated_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
     }
 }

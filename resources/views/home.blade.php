@@ -1,7 +1,15 @@
 @extends('layouts.layout')
 @section('content')
         <main class="py-4">
+        
             <div class="row justify-content-around">
+            <h2>＜投稿一覧＞</h2>
+       
+            <a href="{{ route('create.post') }}">
+                <button type='button' class='btn btn-primary'>投稿する</button>
+            </a>
+</div>
+            <div class='row justify-content-around mt-3'>
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use Cerbon\Carbon;
+use Carbon\Carbon;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -17,8 +17,8 @@ class CommentsTableSeeder extends Seeder
             'user_id'=>01,
             'post_id'=>01,
             'text' => 'テキスト１',
-            //'created_at' => Carbon::now(),
-            //'updated_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
     }
 }
