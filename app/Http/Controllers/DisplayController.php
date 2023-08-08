@@ -18,16 +18,23 @@ use App\Bookmark;
 
 class DisplayController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $post=new post;
-        $posts=$post->all()->toArray();
+        $posts=$post->latest()->get();
+
+        // if($select == 'asc'){
+        //     return $this->orderBy('created_at', 'asc')->get();
+        // } elseif($select == 'desc') {
+        //     return $this->orderBy('created_at', 'desc')->get();
+        // } else {
+        //     return $this->all();
+        // }
         
-        $shop=new shop;
-        $shops=$shop->all()->toArray();
+     
 
         return view('home',[
             'posts'=>$posts,
-            'shops'=>$shops,
+            //'shops'=>$shops,
         ]);
     }
 
@@ -39,11 +46,11 @@ class DisplayController extends Controller
        
     }
 
-    //店舗詳細
-    public function shopDetail(shop $shop){
-        return view('shop',[
-            'shops'=>$shop,
-        ]);
+    //店舗一覧情報
+    public function shopInformation(shop $shop){
+        return view ('/shop_information');
        
     }
+
+   
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 use App\Shop;
@@ -33,9 +35,45 @@ class RegistrationController extends Controller
 
     //新規登録完了
 
+    //プロフィール編集 https://qiita.com/crosawassant/items/d8b434f0bc98455165b4
+    public function profile(){
+        return view ('auth.profile');
+    }
+    public function profileEdit(Request $request){
+        $user = Auth::user();
+        $columns=['name','email','password','image'];
+        foreach($columns as $column){
+            $user->$column=$request->$column;
+        }
+
+        $user->save();
+        return redirect('/');
+    }
+   
+    //プロフィール削除
+    public function profileDelete(){
+        return view('auth.profile.delete');
+    }
+    public function profileDeletes(Request $request){
+        $record=$request;
+
+        $record['del_flg']=1;
+        $record->save();
+        return redirect('/');
+    }
+
+
     //店舗新規登録
     public function shopRegister(){
         return view ('auth.shop_register');
+    }
+   
+     //店舗詳細
+     public function shopDetail(shop $shop){
+        return view('shop',[
+            'shops'=>$shop,
+        ]);
+       
     }
 
     //パスワード再設定
@@ -52,12 +90,16 @@ class RegistrationController extends Controller
 
     public function createPost(Request $request){
         $post=new Post;
-
-        $columns=['title','review','comment','image'];
+        //var_dump($request->all());
+        $columns=['title','comment','image'];
         foreach($columns as $column){
             $post->$column=$request->$column;
         }
-
+        $post->review=$request->review_id;
+        $post->user_id=1;
+        $post->shop_id=1;
+        //右はどの値を入れるか
+        
         //Auth::user()->post()->save($post);
         $post->save();
 

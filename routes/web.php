@@ -23,15 +23,22 @@ Route::get('/', [DisplayController::class,'index']);
 //投稿詳細
 Route::get('/post/{post}/detail',[DisplayController::class,'postDetail'])->name('post.detail');
 
+//店舗情報一覧
+Route::get('/shop_information',[DisplayController::class,'shopInformation'])->name('shop.information');
+
 //店舗詳細
-Route::get('/shop/{shop}/detail',[DisplayController::class,'shopDetail'])->name('shop.detail');
+Route::get('/shop_detail',[RegistrationController::class,'shopDetail'])->name('shop.detail');
 
 //新規登録内容確認
 Route::post('/register/{register}/register',[RegistrationController::class,'registerCheck'])->name('register.check');
 
+//プロフィール編集
+Route::get('/profile',[RegistrationController::class,'profile'])->name('profile');
+Route::post('/profile',[RegistrationController::class,'profileEdit'])->name('profile.edit');
 
-
-//新規登録完了
+//プロフィール削除
+Route::get('/profile_delete',[RegistrationController::class,'profileDelete'])->name('profile.delete');
+Route::post('/profile_delete',[RegistrationController::class,'profileDeletes'])->name('profile.deletes');
 
 //店舗新規登録
 Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');

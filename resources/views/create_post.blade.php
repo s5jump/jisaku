@@ -9,7 +9,20 @@
                         </div>
                         <div class="card-body">
                             <div class="card-body">
-
+                            <div class='panel-body'>
+                            @if($errors->any())
+                            <div class='alert alert-danger'>
+                                <ul>
+                                    @foreach($errors->all() as $message)
+                                    <li>{{ $message }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                        </div>
+                                
+                            <form action="{{ route('create.post')}}" method="post">
+                            @csrf
                             <label for='title'>タイトル</label>
                                 <input type='text' class='form-control' name='title' value="{{ old('title')}}"/>
 
@@ -32,7 +45,7 @@
                                 <button type='submit' class='btn btn-primary w-25 mt-3'>登録</button>
                             </div> 
                         </div>
-                    
+                        </form>
                     </div>
 
                 </div>

@@ -10,10 +10,10 @@
                         <div class="card-body">
                             <div class="card-body">
 
-                            <label for='title'>タイトル</label>
-                                <p>{{ $posts->title }}</p>
-                            <label for='review' class='mt-2'>レビュー点</label>
-                                <p>{{ $posts->review }}</p>
+                            <label for='title'>タイトル：{{ $posts->title }}</label>
+                                <br>
+                            <label for='review' class='mt-2'>レビュー点：{{ $posts->review }}</label>
+                            <br>
                             <label for='comment' class='mt-2'>コメント</label>
                                 <p>{{ $posts->comment }}</p>
                             <!--  写真-->
