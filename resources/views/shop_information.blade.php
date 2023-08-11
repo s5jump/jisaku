@@ -11,6 +11,7 @@
                             <div class="card-body">
                                 <table class='table'>
                                 <thead>
+                                   
                                         <tr>
                                             <th scope='col'>店名</th>
                                             <th scope='col'>住所</th>
@@ -18,24 +19,25 @@
                                             <th scope='col'>店舗写真</th>
                                             <th scope='col'></th>
                                         </tr>
+                                        
                                     </thead>
                                     <tbody>
-                            
+                            @foreach($shops as $shop)
                             <tr>
                             <th scope='col'>
-                              <!-- 店名 --></th>
+                                {{ shop['name'] }}</th>
                             <th scope='col'>
-                                <!-- 住所 --></th>
+                                {{ shop['adress'] }}</th>
                             <th scope='col'>
                                 <!-- 平均レビュー点 --></th>
                             <th scope='col'>
-                                <!-- 写真 --></th>
+                                {{ shop['image'] }}</th>
                             <th scope='col'>
-                                <a href="{{ route('shop.detail') }}">詳細</a></th>
+                                <a href="{{ route('shop.detail',['shop'=>$shop['id']]) }}">詳細</a></th>
                            
                             </tr>
-                           
-                            </tr>
+                            @endforeach 
+                            
                            
                             </tbody>
                             </table>

@@ -9,7 +9,6 @@
                         </div>
                         <div class="card-body">
                             <div class="card-body">
-
                             <label for='title'>タイトル：{{ $posts->title }}</label>
                                 <br>
                             <label for='review' class='mt-2'>レビュー点：{{ $posts->review }}</label>
@@ -18,11 +17,17 @@
                                 <p>{{ $posts->comment }}</p>
                             <!--  写真-->
                             </div>
+                            @if(Auth::check())
+                            <div class="text-right">
+                                <a href="{{ route('edit.post',['post'=>$posts['id']]) }}">
+                                    <button type="submit" class="btn btn-primary">編集</button></a>
+                                    @endif
+                
                         </div>
+                        
                     
                     </div>
-
-                </div>
+               
                 
             </div>
         </main>

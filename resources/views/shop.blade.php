@@ -10,14 +10,14 @@
                         <div class="card-body">
                             <div class="card-body">
 
-                            <label for='name'>店舗名</label>
-                                <p>{{ $shops->name }}</p>
-                            <label for='adress'>住所</label>
-                                <p>{{ $shops->adress }}</p>
-                            <label for='review' class='mt-2'>レビュー点</label>
-                                <p>{{ $shops->review }}</p>
-                            <label for='comment' class='mt-2'>コメント</label>
-                                <p>{{ $shops->comment }}</p>
+                            <label for='name'>店舗名：{{ $posts->name }}</label>
+                            <br>
+                            <label for='adress'>住所：{{ $posts->adress }}</label>
+                            <br>
+                            <label for='review' class='mt-2'>レビュー点：</label>
+                            <br>
+                            <label for='comment' class='mt-2'>コメント：{{ $posts->comment }}</label>
+                            <br>
                             <!--  写真-->
                             </div>
                         </div>

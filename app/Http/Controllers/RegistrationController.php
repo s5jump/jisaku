@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\CreateData;
+
 use App\Shop;
 
 use App\Post;
@@ -51,10 +53,8 @@ class RegistrationController extends Controller
     }
    
     //プロフィール削除
-    public function profileDelete(){
-        return view('auth.profile.delete');
-    }
-    public function profileDeletes(Request $request){
+    
+    public function profileDelete(Request $request){
         $record=$request;
 
         $record['del_flg']=1;
@@ -67,7 +67,7 @@ class RegistrationController extends Controller
     public function shopRegister(){
         return view ('auth.shop_register');
     }
-   
+    
      //店舗詳細
      public function shopDetail(shop $shop){
         return view('shop',[
@@ -75,6 +75,8 @@ class RegistrationController extends Controller
         ]);
        
     }
+
+   
 
     //パスワード再設定
     public function password(){
@@ -105,4 +107,55 @@ class RegistrationController extends Controller
 
         return redirect('/');
     }
+
+    //投稿編集
+    public function editPostForm(Post $post){
+        return view ('edit_post',[
+            'posts'=>$post,
+        ]);
+    }
+
+    public function editPost(Post $post, Request $request){
+        $record=$post;
+
+        $columns=['title','comment','image'];
+        foreach($columns as $column){
+            $record->$column=$request->$column;
+        }
+        $record->review=$request->review_id;
+        $record->user_id=1;
+        $record->shop_id=1;
+       
+        $record->save();
+        return redirect('/');
+    }
+
+    //投稿削除
+    public function postDelete(Post $post){
+        $record=$post;
+        $record['del_flg']=1;
+        
+        $record->save();
+        return redirect('/');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    public function update(CreateData $request){
+
+    }
 }
+
+
+

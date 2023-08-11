@@ -22,10 +22,12 @@
                 <button type='button' class='btn btn-warning'>店舗情報</button>
             </a>
 
-
+            @if(Auth::check())
             <a href="{{ route('create.post') }}">
                 <button type='button' class='btn btn-primary'>投稿する</button>
             </a>
+            @endif
+
 </div>
             <div class='row justify-content-around mt-3'>
                 <div class="col-md-4">

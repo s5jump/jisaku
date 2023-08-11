@@ -45,12 +45,15 @@ class DisplayController extends Controller
         ]);
        
     }
-
-    //店舗一覧情報
+    //店舗情報一覧
     public function shopInformation(shop $shop){
-        return view ('/shop_information');
+        return view('shop_information',[
+            'shops'=>$shop,
+        ]);
        
     }
+
+   
 
    
 }
