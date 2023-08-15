@@ -41,19 +41,20 @@
                                 <input type="file" class="form-control" id="image" name="image" value="{{ old('image',$posts->image) }}"/>
                             
                                 </div>
-                            <div class="text-right">
-                            <a href="{{ route('profile.delete') }}">
-                                <button type='submit' class='btn btn-primary '>更新</button></a>
-
-                            <a href="{{ route('profile.delete') }}">
-                                <button type="submit" class="btn btn-primary">削除</button></a>
-                                </div>
-                               
+                           
                            
                         </div>
                         </form>
-                    </div>
+                        <div class="text-right">
+                            <a href="{{ route('edit.post',['post'=>$posts['id']]) }}">
+                                <button type='submit' class='btn btn-primary '>更新</button></a>
 
+                            <a href="{{ route('post.delete',['post'=>$posts['id']]) }}">
+                                <button type="submit" class="btn btn-primary">削除</button></a>
+                                </div>
+                               
+                    </div>
+                    </div>
                 </div>
                 
             </div>

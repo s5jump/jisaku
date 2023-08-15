@@ -2,18 +2,49 @@
 @section('content')
         <main class="py-4">
         
+       
+        
+      
+
+        
+        <div class="row justify-content-around">
+            <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class='text-center'>検索</div>
+                                <div class="card-body">
+                                    <form>
+                                        @csrf
+                                        <label for='title'>タイトル</label>
+                                        <input type="text" name="title" value="{{ $title }}">
+                                        <input type="submit" value="検索">
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            
+        
+       
         <div class="my-navbar-contorol">
         <div class="row justify-content-around">
         <div class="col-md-4">
+        </div>
+      
+        
         @if(Auth::check())
         <div class="card-header">
             <h1><span class="my-navbar-item">{{ Auth::user()->name }}</span></h1>
-            <p><a href="{{ route('profile') }}">プロフィール編集</a></p>
+           
+            <p> <a href="{{ route('my.post') }}">自分の投稿</a>　　　　　　　　　　　
+            <a href="{{ route('profile') }}">プロフィール編集</a></p>
             </div>
             @endif
         </div>
         </div>
-        
+        </div>
+        </div> 
+        </div>
         </div>
 
 

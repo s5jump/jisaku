@@ -8,33 +8,44 @@ use Illuminate\Support\Facades\DB;
 
 use App\Shop;
 
+use App\User;
+
 use App\Post;
 
 use App\Comment;
 
 use App\Bookmark;
 
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class DisplayController extends Controller
 {
     public function index(Request $request){
+
+        //検索
+        $title = $request->input('title');
+
+        $query = Post::query();
+
+        if(!empty($title)) {
+            $query->where('title', 'LIKE', "%{$title}%")
+                ->orWhere('author', 'LIKE', "%{$title}%");
+        }
+
+       
+
+
         $post=new post;
         $posts=$post->latest()->get();
-
-        // if($select == 'asc'){
-        //     return $this->orderBy('created_at', 'asc')->get();
-        // } elseif($select == 'desc') {
-        //     return $this->orderBy('created_at', 'desc')->get();
-        // } else {
-        //     return $this->all();
-        // }
-        
      
+        // $user = User::query()->where('del_flg',0)->get();
 
         return view('home',[
             'posts'=>$posts,
-            //'shops'=>$shops,
+            //'title'=>$title,
+            //'auther'=>$auther,
+            'title'=>$title,
+            //'users'=>$user,
         ]);
     }
 
@@ -51,6 +62,16 @@ class DisplayController extends Controller
             'shops'=>$shop,
         ]);
        
+    }
+
+    //自分の投稿一覧
+    public function myPost(post $post){
+        $post=new post;
+        $posts=$post->latest()->where('user_id',Auth::id())->get();
+
+        return view('my_post',[
+            'posts'=>$posts,
+        ]);
     }
 
    

@@ -32,14 +32,15 @@
                 <label for="image">アイコン写真</label>
                 <input type="file" class="form-control" id="image" name="image" value="{{ Auth::user()->image }}" />
               </div>
-             
-              <div class="text-right">
+            </form>
+             <div class="text-right">
               <a href="{{ route('profile.edit') }}">
                 <button type="submit" class="btn btn-primary">更新</button></a>
-                <a href="{{ route('profile.delete') }}">
+                
+              
+            <a href="{{ route('profile.delete',['id'=>Auth::user()->id ]) }}">
                 <button type="submit" class="btn btn-primary">削除</button></a>
-              </div>
-            </form>
+          </div>
           </div>
         </nav>
       </div>

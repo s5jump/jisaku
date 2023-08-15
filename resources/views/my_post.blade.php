@@ -1,51 +1,49 @@
 @extends('layouts.layout')
 @section('content')
         <main class="py-4">
+        
+        <div class="my-navbar-contorol">
         <div class="row justify-content-around">
+        
+        <form action="{{ route('my.post') }}" method="post">
+        @csrf
+</div>
+            <div class='row justify-content-around mt-3'>
                 <div class="col-md-4">
                     <div class="card">
-                    <form action="{{ route('shop.information') }}" method="post">
                         <div class="card-header">
-                            <div class='text-center'>店舗一覧</div>
+                            <div class='text-center'>自分の投稿</div>
                         </div>
                         <div class="card-body">
                             <div class="card-body">
                                 <table class='table'>
                                 <thead>
-                                   
                                         <tr>
-                                            <th scope='col'>店名</th>
-                                            <th scope='col'>住所</th>
-                                            <th scope='col'>平均レビュー点</th>
-                                            <th scope='col'>店舗写真</th>
+                                            <th scope='col'>タイトル</th>
+                                            <th scope='col'>レビュー点</th>
                                             <th scope='col'></th>
                                         </tr>
-                                        
                                     </thead>
                                     <tbody>
-                            
+                            @foreach($posts as $post)
                             <tr>
                             <th scope='col'>
-                            {{ $shops->name }}</th>
+                                {{ $post['title'] }}</th>
+                           
                             <th scope='col'>
-                            {{ $shops->adress }}</th>
+                                {{ $post['review'] }}</th>
+
                             <th scope='col'>
-                                <!-- 平均レビュー点 --></th>
-                            <th scope='col'>
-                            {{ $shops->comment }}</th>
-                            <th scope='col'>
-                                <a href="{{ route('shop.detail') }}">詳細</a></th>
+                            <a href="{{ route('post.detail',['post'=>$post['id']]) }}">詳細</a></th>
                            
                             </tr>
-                           
-                            
-                           
+                            @endforeach
                             </tbody>
                             </table>
                             </div>
                         </div>
 
-                    </form>
+</form>
                     </div>
                 </div>
               

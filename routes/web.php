@@ -22,18 +22,27 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/profile',[RegistrationController::class,'profileEdit'])->name('profile.edit');
 
     //プロフィール削除
-    Route::get('/profile_delete',[RegistrationController::class,'profileDelete'])->name('profile.delete');
+    Route::get('/profile/{id}/delete',[RegistrationController::class,'profileDelete'])->name('profile.delete');
+    Route::post('/profile/{id}/delete',[RegistrationController::class,'profileDeletes']);
 
     //新規投稿post
     Route::get('/create_post',[RegistrationController::class,'createPostForm'])->name('create.post');
     Route::post('/create_post',[RegistrationController::class,'createPost']);
 
-    //投稿編集
-    Route::get('/edit_post/{post}',[RegistrationController::class,'editPostForm'])->name('edit.post');
-    Route::post('/edit_post/{post}',[RegistrationController::class,'editPost']);
+    //自分の投稿一覧
+    Route::get('/my_post',[DisplayController::class,'myPost'])->name('my.post');
 
-    //投稿削除
-    Route::get('/post_delete/{post}',[RegistrationController::class,'postDelete'])->name('post.delete');
+     //投稿編集
+     Route::get('/edit_post/{post}',[RegistrationController::class,'editPostForm'])->name('edit.post');
+     Route::post('/edit_post/{post}',[RegistrationController::class,'editPost']);
+ 
+     //投稿削除
+     Route::get('/post_delete/{post}',[RegistrationController::class,'postDelete'])->name('post.delete');
+     Route::post('/post_delete/{post}',[RegistrationController::class,'postDeletes']);
+
+    //違反報告
+    Route::get('/breach',[RegistrationController::class,'breachForm'])->name('breach');
+    Route::post('/breach',[RegistrationController::class,'breach']);
 
 });
 
@@ -45,17 +54,18 @@ Route::get('/post/{post}/detail',[DisplayController::class,'postDetail'])->name(
 //店舗情報一覧
 Route::get('/shop_information',[DisplayController::class,'shopInformation'])->name('shop.information');
 //店舗詳細
-Route::get('/shop/{shop}',[RegistrationController::class,'shopDetail'])->name('shop.detail');
+Route::get('/shop',[RegistrationController::class,'shopDetail'])->name('shop.detail');
 
 
 
 //新規登録内容確認
-Route::post('/register/{register}/register',[RegistrationController::class,'registerCheck'])->name('register.check');
+//Route::post('/register/{register}/register',[RegistrationController::class,'registerCheck'])->name('register.check');
 
 
 
 //店舗新規登録
 Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
+Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
 
 //パスワード再設定
 Route::get('/password/email',[RegistrationController::class,'password'])->name('password');

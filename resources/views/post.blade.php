@@ -19,13 +19,17 @@
                             </div>
                             @if(Auth::check())
                             <div class="text-right">
+                            <a href="{{ route('breach') }}">
+                                    <button type="submit" class="btn btn-primary">違反報告</button></a>
+                            @endif
+                            @if(Auth::id())
                                 <a href="{{ route('edit.post',['post'=>$posts['id']]) }}">
                                     <button type="submit" class="btn btn-primary">編集</button></a>
-                                    @endif
+                            @endif    
                 
                         </div>
                         
-                    
+</div>
                     </div>
                
                 

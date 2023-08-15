@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Support\Collection;
+
+use App\User;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests\CreateData;
@@ -43,10 +49,11 @@ class RegistrationController extends Controller
     }
     public function profileEdit(Request $request){
         $user = Auth::user();
-        $columns=['name','email','password','image'];
+        $columns=['name','email','image'];
         foreach($columns as $column){
             $user->$column=$request->$column;
         }
+        $user->password=Hash::make($request['password']);
 
         $user->save();
         return redirect('/');
@@ -54,19 +61,36 @@ class RegistrationController extends Controller
    
     //プロフィール削除
     
-    public function profileDelete(Request $request){
-        $record=$request;
+    public function profileDeletes(CreateDate $request){
+        $user = Auth::user();
+        $columns=['name','email','image'];
+        foreach($columns as $column){
+            $user->$column=$request->$column;
+        }
+        $user->password=Hash::make($request['password']);
 
-        $record['del_flg']=1;
-        $record->save();
+        $user->save();
         return redirect('/');
     }
 
+    public function profileDelete(int $id){
+        $user = Auth::user();
+        $user->del_flg=1;
+
+        //$user=User::find($id)->delete();
+        //$users=$user->where('del_flg',0)->get();
+
+        $user->save();
+        return redirect('/');
+    }
+    
 
     //店舗新規登録
     public function shopRegister(){
         return view ('auth.shop_register');
     }
+
+
     
      //店舗詳細
      public function shopDetail(shop $shop){
@@ -108,6 +132,8 @@ class RegistrationController extends Controller
         return redirect('/');
     }
 
+   
+
     //投稿編集
     public function editPostForm(Post $post){
         return view ('edit_post',[
@@ -126,22 +152,51 @@ class RegistrationController extends Controller
         $record->user_id=1;
         $record->shop_id=1;
        
-        $record->save();
+        Auth::user()->post()->save($record);
+        //$record->save();
         return redirect('/');
     }
 
     //投稿削除
-    public function postDelete(Post $post){
+    public function editPosts(Post $post, CreateDate $request){
         $record=$post;
-        $record['del_flg']=1;
-        
-        $record->save();
+
+        $columns=['title','comment','image'];
+        foreach($columns as $column){
+            $record->$column=$request->$column;
+        }
+        $record->review=$request->review_id;
+        $record->user_id=1;
+        $record->shop_id=1;
+       
+        Auth::user()->post()->save($record);
+        //$record->save();
+        return redirect('/');
+    }
+    public function postDelete(Post $post){
+        $post->del_flg=1;
+        //$post->delete();
+        // $posts=$post->where('del_flg',0)->get();
+         $post->save();
         return redirect('/');
     }
 
+   //違反報告
+   public function breachForm(){
+    return view ('breach');
+   }
 
+   public function breach(Comment $comment, Request $request){
+    $comment=new Comment;
 
+    $comment->text=$request->text;
+    $comment->user_id=1;
+    $comment->post_id=1;
 
+    $comment->save();
+
+    return redirect('/');
+   }
 
 
 
@@ -153,7 +208,7 @@ class RegistrationController extends Controller
 
     
     public function update(CreateData $request){
-
+        
     }
 }
 
