@@ -174,10 +174,8 @@ class RegistrationController extends Controller
         return redirect('/');
     }
     public function postDelete(Post $post){
-        $post->del_flg=1;
-        //$post->delete();
-        // $posts=$post->where('del_flg',0)->get();
-         $post->save();
+        $post->delete();
+      
         return redirect('/');
     }
 
