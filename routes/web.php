@@ -22,8 +22,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/profile',[RegistrationController::class,'profileEdit'])->name('profile.edit');
 
     //プロフィール削除
-    Route::get('/profile/{id}/delete',[RegistrationController::class,'profileDelete'])->name('profile.delete');
-    Route::post('/profile/{id}/delete',[RegistrationController::class,'profileDeletes']);
+    Route::get('/profile/{post}/delete',[RegistrationController::class,'profileDelete'])->name('profile.delete');
+    
 
     //新規投稿post
     Route::get('/create_post',[RegistrationController::class,'createPostForm'])->name('create.post');

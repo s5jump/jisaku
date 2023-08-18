@@ -60,27 +60,16 @@ class RegistrationController extends Controller
     }
    
     //プロフィール削除
-    
-    public function profileDeletes(CreateDate $request){
+    public function profileDelete(Request $post){
         $user = Auth::user();
-        $columns=['name','email','image'];
-        foreach($columns as $column){
-            $user->$column=$request->$column;
-        }
-        $user->password=Hash::make($request['password']);
+        // $user->del_flg=1;
 
-        $user->save();
-        return redirect('/');
-    }
-
-    public function profileDelete(int $id){
-        $user = Auth::user();
-        $user->del_flg=1;
-
-        //$user=User::find($id)->delete();
-        //$users=$user->where('del_flg',0)->get();
-
-        $user->save();
+        // //$user=User::find($id)->delete();
+       
+        $user = User::find($post->input('post'));
+        $user->delete();
+        
+        // $user->save();
         return redirect('/');
     }
     

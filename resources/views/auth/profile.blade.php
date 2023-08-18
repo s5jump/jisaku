@@ -38,7 +38,7 @@
                 <button type="submit" class="btn btn-primary">更新</button></a>
                 
               
-            <a href="{{ route('profile.delete',['id'=>Auth::user()->id ]) }}">
+            <a href="{{ route('profile.delete',['post'=>Auth::user()->id ]) }}">
                 <button type="submit" class="btn btn-primary">削除</button></a>
           </div>
           </div>
