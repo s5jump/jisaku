@@ -23,16 +23,18 @@
                                         
                                     </thead>
                                     <tbody>
-                            
+                            @foreach($shops as $shop)
                             <tr>
                             <th scope='col'>
-                            {{ $shops->name }}</th>
+                            {{ $shop->name }}</th>
                             <th scope='col'>
-                            {{ $shops->adress }}</th>
+                            {{ $shop->adress }}</th>
                             <th scope='col'>
                                 <!-- 平均レビュー点 --></th>
                             <th scope='col'>
-                            {{ $shops->comment }}</th>
+                            {{ $shop->comment }}</th>
+                            </form>
+                            @endforeach
                             <th scope='col'>
                                 <a href="{{ route('shop.detail') }}">詳細</a></th>
                            
@@ -45,7 +47,7 @@
                             </div>
                         </div>
 
-                    </form>
+                    
                     </div>
                 </div>
               

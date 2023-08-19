@@ -13,12 +13,22 @@
                         <div class="card-header">
                             <div class='text-center'>検索</div>
                                 <div class="card-body">
-                                    <form>
-                                        @csrf
-                                        <label for='title'>タイトル</label>
-                                        <input type="text" name="title" value="{{ $title }}">
-                                        <input type="submit" value="検索">
-                                    </form>
+                                <form class="form-inline my-2 my-lg-0 ml-2">
+                                @csrf
+                                    <div class="form-group">
+                                    
+                                    <input type="search" class="form-control mr-sm-2" name="keyword"  value="{{ $keyword }}" placeholder="タイトル　内容　地域" aria-label="検索...">
+                                  
+                                    <select name='review_id' class='form-control mr-sm-1' value="{{ $review_id }}">
+                                        @foreach(Config::get('pulldown.review') as $key => $val)
+                                        <option value="{{ $key }}" >{{ $val }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    </div>
+                                    
+                                    <input type="submit" value="検索" class="btn btn-info">
+                                </form>
                                 </div>
                         </div>
                     </div>
@@ -72,7 +82,9 @@
                                 <thead>
                                         <tr>
                                             <th scope='col'>タイトル</th>
+                                            @if(Auth::check())
                                             <th scope='col'>ユーザー名</th>
+                                            @endif
                                             <th scope='col'>レビュー点</th>
                                             <th scope='col'></th>
                                         </tr>
@@ -82,9 +94,13 @@
                             <tr>
                             <th scope='col'>
                                 {{ $post['title'] }}</th>
+                              
+                                @if(Auth::check())
                             <th scope='col'>
-                                <!-- ユーザー名 -->
+                                {{ Auth::user()->name }}
                             </th>
+                            @endif
+                           
                             <th scope='col'>
                                 {{ $post['review'] }}</th>
                             <th scope='col'>

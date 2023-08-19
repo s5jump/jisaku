@@ -9,17 +9,18 @@
                         </div>
                         <div class="card-body">
                             <div class="card-body">
-
-                            <label for='name'>店舗名：{{ $posts->name }}</label>
+                            @foreach($shops as $shop)
+                            <label for='name'>店舗名：{{ $shop->name }}</label>
                             <br>
-                            <label for='adress'>住所：{{ $posts->adress }}</label>
+                            <label for='adress'>住所：{{ $shop->adress }}</label>
                             <br>
                             <label for='review' class='mt-2'>レビュー点：</label>
                             <br>
-                            <label for='comment' class='mt-2'>コメント：{{ $posts->comment }}</label>
+                            <label for='comment' class='mt-2'>コメント：{{ $shop->comment }}</label>
                             <br>
                             <!--  写真-->
                             </div>
+                            @endforeach
                         </div>
                     
                     </div>

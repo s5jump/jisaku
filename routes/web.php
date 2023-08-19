@@ -58,6 +58,8 @@ Route::get('/shop',[RegistrationController::class,'shopDetail'])->name('shop.det
 
 
 
+
+
 //新規登録内容確認
 //Route::post('/register/{register}/register',[RegistrationController::class,'registerCheck'])->name('register.check');
 

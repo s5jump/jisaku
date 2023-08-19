@@ -22,7 +22,7 @@
                 <label for="email">メールアドレス</label>
                 <input type="text" class="form-control" id="email" name="email"  />
               
-             
+                </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">メール送信</button>
               </div>

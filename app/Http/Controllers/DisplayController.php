@@ -21,31 +21,38 @@ use Illuminate\Support\Facades\Auth;
 class DisplayController extends Controller
 {
     public function index(Request $request){
+        $user_id = Auth::id();
+
+        $posts=Post::query()->latest()->get();
+        //$q=Post::query()->where('')->where('user_id',Auth::id());
 
         //検索
-        $title = $request->input('title');
+        $keyword = $request->input('keyword');
+        $review_id=$request->input('review_id');
 
-        $query = Post::query();
+   
 
-        if(!empty($title)) {
-            $query->where('title', 'LIKE', "%{$title}%")
-                ->orWhere('author', 'LIKE', "%{$title}%");
+        //$keyword　が空ではない場合、検索処理を実行します
+        if (!empty($keyword)) {
+            $request->where(function ($request) use ($keyword) {
+                $request->where('title', 'like', '%' , "%{$keyword}%")
+                    ->orWhere('comment', 'like', '%', "%{$keyword}%")
+                    ->orWhere('adress', 'like', '%' , "%{$keyword}%");
+            });
+        }  
+
+        if (isset($review_id)) {
+            $request->where('review_id', $review_id);
         }
 
+    
+        //->paginate(8); 8投稿毎にページ移動
        
-
-
-        $post=new post;
-        $posts=$post->latest()->get();
-     
-        // $user = User::query()->where('del_flg',0)->get();
 
         return view('home',[
             'posts'=>$posts,
-            //'title'=>$title,
-            //'auther'=>$auther,
-            'title'=>$title,
-            //'users'=>$user,
+            'keyword'=>$keyword,
+            'review_id'=>$review_id,
         ]);
     }
 
@@ -53,11 +60,13 @@ class DisplayController extends Controller
     public function postDetail(post $post){
         return view('post',[
             'posts'=>$post,
+            
         ]);
        
     }
     //店舗情報一覧
     public function shopInformation(shop $shop){
+        $shop = Shop::all();
         return view('shop_information',[
             'shops'=>$shop,
         ]);
@@ -66,8 +75,9 @@ class DisplayController extends Controller
 
     //自分の投稿一覧
     public function myPost(post $post){
-        $post=new post;
-        $posts=$post->latest()->where('user_id',Auth::id())->get();
+       
+        $posts=Post::orderBy('created_at', 'desc')->get();
+       
 
         return view('my_post',[
             'posts'=>$posts,

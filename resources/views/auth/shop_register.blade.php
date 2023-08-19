@@ -49,7 +49,7 @@
                 <input type="file" class="form-control" id="image" name="image" value="{{ old('image') }}"/>
               </div>
               <div class="text-right">
-                <button type="submit" class="btn btn-primary">登録内容確認</button>
+                <button type="submit" class="btn btn-primary">登録</button>
               </div>
             </form>
           </div>

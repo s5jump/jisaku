@@ -62,8 +62,6 @@ class RegistrationController extends Controller
     //プロフィール削除
     public function profileDelete(Request $post){
         $user = Auth::user();
-        // $user->del_flg=1;
-
         // //$user=User::find($id)->delete();
        
         $user = User::find($post->input('post'));
@@ -83,6 +81,7 @@ class RegistrationController extends Controller
     
      //店舗詳細
      public function shopDetail(shop $shop){
+        $shop = Shop::all();
         return view('shop',[
             'shops'=>$shop,
         ]);
@@ -111,8 +110,10 @@ class RegistrationController extends Controller
             $post->$column=$request->$column;
         }
         $post->review=$request->review_id;
-        $post->user_id=1;
-        $post->shop_id=1;
+        $post->user_id=$request->user_id;
+        $post->shop_id=$request->shop_id;
+        // $post->user_id=1;
+        // $post->shop_id=1;
         //右はどの値を入れるか
         
         //Auth::user()->post()->save($post);
@@ -138,8 +139,8 @@ class RegistrationController extends Controller
             $record->$column=$request->$column;
         }
         $record->review=$request->review_id;
-        $record->user_id=1;
-        $record->shop_id=1;
+        $post->user_id=$request->user_id;
+        $post->shop_id=$request->shop_id;
        
         Auth::user()->post()->save($record);
         //$record->save();
@@ -155,8 +156,8 @@ class RegistrationController extends Controller
             $record->$column=$request->$column;
         }
         $record->review=$request->review_id;
-        $record->user_id=1;
-        $record->shop_id=1;
+        $post->user_id=$request->user_id;
+        $post->shop_id=$request->shop_id;
        
         Auth::user()->post()->save($record);
         //$record->save();
@@ -177,8 +178,8 @@ class RegistrationController extends Controller
     $comment=new Comment;
 
     $comment->text=$request->text;
-    $comment->user_id=1;
-    $comment->post_id=1;
+    $post->user_id=$request->user_id;
+    $post->shop_id=$request->shop_id;
 
     $comment->save();
 
