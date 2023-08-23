@@ -18,9 +18,15 @@
                             <br>
                             <label for='comment' class='mt-2'>コメント：{{ $shop->comment }}</label>
                             <br>
-                            <!--  写真-->
-                            </div>
+                            <label for='image' class='mt-2'>店舗写真：{{ $shop->image }}</label>
                             @endforeach
+                            <br>
+                            <label for='image' class='mt-2'>ユーザーレビュー一覧</label>
+                            </div>
+                            
+                              
+                            
+                            
                         </div>
                     
                     </div>

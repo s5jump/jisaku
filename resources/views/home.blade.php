@@ -19,16 +19,18 @@
                                     
                                     <input type="search" class="form-control mr-sm-2" name="keyword"  value="{{ $keyword }}" placeholder="タイトル　内容　地域" aria-label="検索...">
                                   
-                                    <select name='review_id' class='form-control mr-sm-1' value="{{ $review_id }}">
+                                    <select name='review' class='form-control mr-sm-2' value="{{ $review }}">
+                                        <option value='' hidden>点</option> 
                                         @foreach(Config::get('pulldown.review') as $key => $val)
                                         <option value="{{ $key }}" >{{ $val }}</option>
                                         @endforeach
                                     </select>
 
-                                    </div>
+                                   
                                     
                                     <input type="submit" value="検索" class="btn btn-info">
                                 </form>
+                                </div>
                                 </div>
                         </div>
                     </div>
@@ -64,6 +66,12 @@
             </a>
 
             @if(Auth::check())
+            
+            <a href="">
+                <button type='button' class='btn btn-success'>ブックマーク</button>
+            </a>
+
+            
             <a href="{{ route('create.post') }}">
                 <button type='button' class='btn btn-primary'>投稿する</button>
             </a>
@@ -95,7 +103,7 @@
                             <th scope='col'>
                                 {{ $post['title'] }}</th>
                               
-                                @if(Auth::check())
+                                @if(Auth::id())
                             <th scope='col'>
                                 {{ Auth::user()->name }}
                             </th>

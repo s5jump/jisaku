@@ -4,7 +4,10 @@
         <div class="row justify-content-around">
                 <div class="col-md-4">
                     <div class="card">
-                    <form action="{{ route('shop.information') }}" method="post">
+
+                   
+
+                    
                         <div class="card-header">
                             <div class='text-center'>店舗一覧</div>
                         </div>
@@ -29,11 +32,15 @@
                             {{ $shop->name }}</th>
                             <th scope='col'>
                             {{ $shop->adress }}</th>
+                           
+
                             <th scope='col'>
-                                <!-- 平均レビュー点 --></th>
+                             </th>
+
+                           
                             <th scope='col'>
-                            {{ $shop->comment }}</th>
-                            </form>
+                            {{ $shop->image }}</th>
+                          
                             @endforeach
                             <th scope='col'>
                                 <a href="{{ route('shop.detail') }}">詳細</a></th>

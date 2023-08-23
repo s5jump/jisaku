@@ -33,6 +33,7 @@
                             <th scope='col'>
                                 {{ $post['review'] }}</th>
 
+                                
                             <th scope='col'>
                             <a href="{{ route('post.detail',['post'=>$post['id']]) }}">詳細</a></th>
                            

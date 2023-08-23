@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('post_id');
-            $table->string('text','300');
+            $table->string('text','300')->nullable();
             $table->tinyInteger('del_flg')->default(0); 
             $table->timestamps();
         });

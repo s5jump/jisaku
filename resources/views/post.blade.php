@@ -13,9 +13,12 @@
                                 <br>
                             <label for='review' class='mt-2'>レビュー点：{{ $posts->review }}</label>
                             <br>
-                            <label for='comment' class='mt-2'>コメント</label>
-                                <p>{{ $posts->comment }}</p>
-                            <!--  写真-->
+                            <label for='comment' class='mt-2'>コメント: {{ $posts->comment }}</label>
+                               
+                                <br>
+                            <label for='image' class='mt-2'>写真:{{ $posts->image }}</label>
+                                
+                            
                             </div>
                             @if(Auth::check())
                             <div class="text-right">

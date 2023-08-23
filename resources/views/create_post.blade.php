@@ -28,7 +28,7 @@
 
                             <label for='review' class='mt-2'>レビュー点</label>
                             <select name='review_id' class='form-control'>
-                                
+                            <option value='' hidden>点</option>
                                 @foreach(Config::get('pulldown.review') as $key => $val)
                                 <option value="{{ $key }}" >{{ $val }}</option>
                                 @endforeach

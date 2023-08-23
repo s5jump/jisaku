@@ -110,10 +110,9 @@ class RegistrationController extends Controller
             $post->$column=$request->$column;
         }
         $post->review=$request->review_id;
-        $post->user_id=$request->user_id;
-        $post->shop_id=$request->shop_id;
-        // $post->user_id=1;
-        // $post->shop_id=1;
+        
+        $post->user_id=Auth::id();
+        $post->shop_id=Auth::id();
         //右はどの値を入れるか
         
         //Auth::user()->post()->save($post);
@@ -139,8 +138,8 @@ class RegistrationController extends Controller
             $record->$column=$request->$column;
         }
         $record->review=$request->review_id;
-        $post->user_id=$request->user_id;
-        $post->shop_id=$request->shop_id;
+        $post->user_id=Auth::id();
+        $post->shop_id=Auth::id();
        
         Auth::user()->post()->save($record);
         //$record->save();
@@ -156,8 +155,8 @@ class RegistrationController extends Controller
             $record->$column=$request->$column;
         }
         $record->review=$request->review_id;
-        $post->user_id=$request->user_id;
-        $post->shop_id=$request->shop_id;
+        $post->user_id=Auth::id();
+        $post->shop_id=Auth::id();
        
         Auth::user()->post()->save($record);
         //$record->save();
@@ -178,15 +177,33 @@ class RegistrationController extends Controller
     $comment=new Comment;
 
     $comment->text=$request->text;
-    $post->user_id=$request->user_id;
-    $post->shop_id=$request->shop_id;
+    $comment->user_id=Auth::id();
+    $comment->post_id=Auth::id();
+    
 
     $comment->save();
 
     return redirect('/');
    }
 
+   //ブックマーク
+//    public function bookmark(Request $request){
+//     $bookmark=new Bookmark;
+//     $bookmark->shop_id = $request->shop_id;
+//     $bookmark->user_id = Auth::user()->id;
 
+//     $bookmark->save();
+//     return redirect ('/',[
+//         'bookmark'=>$bookmark,
+//     ]);
+//     }
+
+//    public function bookmarkForm(Request $request){
+//     return view ('bookmark',[
+//         'bookmark'=>$bookmark,
+//     ]);
+//     }
+   
 
 
 
