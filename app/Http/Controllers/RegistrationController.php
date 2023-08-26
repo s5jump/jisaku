@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Collection;
 
-use App\User;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -21,6 +21,8 @@ use App\Post;
 use App\Comment;
 
 use App\Bookmark;
+
+
 
 class RegistrationController extends Controller
 {
@@ -90,10 +92,9 @@ class RegistrationController extends Controller
 
    
 
-    //パスワード再設定
-    public function password(){
-        return view('password');
-    }
+
+
+
 
     //新規投稿
     public function createPostForm(){

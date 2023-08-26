@@ -19,12 +19,15 @@
               @csrf
              
               <div class="form-group">
+              
+              <p>ご利用中のメールアドレスを入力してください</p>
+              <p>パスワード再設定のためのURLをお送りします</p>
                 <label for="email">メールアドレス</label>
-                <input type="text" class="form-control" id="email" name="email"  />
+                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" />
               
                 </div>
               <div class="text-right">
-                <button type="submit" class="btn btn-primary">メール送信</button>
+                <button type="submit" class="btn btn-primary">再設定メールを送信</button>
               </div>
             </form>
           </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,8 +74,23 @@ Route::get('/shop',[RegistrationController::class,'shopDetail'])->name('shop.det
 Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
 Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
 
-//パスワード再設定
-Route::get('/password/email',[RegistrationController::class,'password'])->name('password');
+
+
+
+Route::prefix('reset')->group(function () {
+//パスワード再設定画面へ
+    Route::get('/password',[UsersController::class,'password'])->name('password');
+        //メール送信
+        Route::get('/password/email',[UsersController::class,'passwordEmail'])->name('password.email');
+        Route::post('/password/email',[UsersController::class,'passwordEmail'])->name('password.email');
+        // メール送信完了
+        Route::get('/password/send',[UsersController::class,'passwordSend'])->name('password.send');
+        // パスワード再設定
+        Route::get('/password/reset',[UsersController::class,'passwordReset'])->name('password.reset');
+        // パスワード更新
+        Route::post('/password/update',[UsersController::class,'passwordResetUpdate'])->name('password.reset.update');
+
+});
 
 
 

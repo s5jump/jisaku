@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Shop;
 
-use App\User;
+use App\Models\User;
 
 use App\Post;
 
@@ -23,14 +23,13 @@ class DisplayController extends Controller
     public function index(Request $request){
         $user_id = Auth::id();
 
-        //$q=Post::query()->where('')->where('user_id',Auth::id());
 
         //検索 
         $keyword = $request->input('keyword');
         $review=$request->input('review');
 
         $posts=Post::query()->latest();
-
+        //DD($posts);
         //join https://qiita.com/kamome_susume/items/b37709e1ba29abacdbd9
         $posts=Post::join('shops','posts.shop_id','=','shops.id');
             
@@ -47,10 +46,11 @@ class DisplayController extends Controller
         if (isset($review)) {
             $posts->where('review', $review);
         }
-
+       //DD($posts);
         $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
+        //$posts=$posts->get()->toArray();
+        //$posts = Post::all();
        
-      
         
         return view('home',[
             'posts'=>$posts,
