@@ -1,4 +1,5 @@
 <?php
+//https://qiita.com/rikako_hira/items/4626090769f4023d4107#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB
 
 namespace App\Http\Controllers;
 
@@ -35,7 +36,7 @@ class UsersController extends Controller
     {
         try {
             // ユーザー情報取得
-            $user = UsersService::findFromMail($request->mail);
+            $user = UsersService::findFromMail($request->email);
             $userToken = UsersService::updateOrCreateUser($user->id);
 
             // メール送信

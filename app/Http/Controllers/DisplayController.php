@@ -28,7 +28,9 @@ class DisplayController extends Controller
         $keyword = $request->input('keyword');
         $review=$request->input('review');
 
-        $posts=Post::query()->latest();
+        //$posts = Post::all();
+        //$posts=Post::query()->latest();
+        $posts=Post::query();
         //DD($posts);
         //join https://qiita.com/kamome_susume/items/b37709e1ba29abacdbd9
         $posts=Post::join('shops','posts.shop_id','=','shops.id');
@@ -47,10 +49,12 @@ class DisplayController extends Controller
             $posts->where('review', $review);
         }
        //DD($posts);
+       //$posts=$posts->orderBy('created_at', 'desc')->get();
         $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
+        //$pusts=Post::latest('updated_at')->get()->toArray();
         //$posts=$posts->get()->toArray();
         //$posts = Post::all();
-       
+       //DD($posts);
         
         return view('home',[
             'posts'=>$posts,

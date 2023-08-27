@@ -19,7 +19,7 @@
                                     
                                     <input type="search" class="form-control mr-sm-2" name="keyword"  value="{{ $keyword }}" placeholder="タイトル　内容　地域" aria-label="検索...">
                                   
-                                    <select name='review' class='form-control mr-sm-2' value="{{ $review }}">
+                                    <select class='form-control mr-sm-2'  name='review' value="{{ $review }}">
                                         <option value='' hidden>点</option> 
                                         @foreach(Config::get('pulldown.review') as $key => $val)
                                         <option value="{{ $key }}" >{{ $val }}</option>
