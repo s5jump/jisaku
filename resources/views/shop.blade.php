@@ -8,8 +8,27 @@
                             <div class='text-center'>店舗詳細</div>
                         </div>
                         <div class="card-body">
+                        @foreach($shops as $shop)
+
+                       
+
+                        <div>
+                        @if (Auth::check())
+                            @if ($shop)
+                       
+                            <a href="{{ route('bookmark') }}" class="btn btn-success btn-sm">ブックマーク<span class="bookmark"></span></a>
+                        @else
+                            <a href="{{ route('bookmark.form') }}" class="btn btn-secondary btn-sm">ブックマーク解除<span class="bookmark"></span></a>
+                        @endif
+                        @endif
+                        </div>
+                      
+                        
+                      
+
+
                             <div class="card-body">
-                            @foreach($shops as $shop)
+                            
                             <label for='name'>店舗名：{{ $shop->name }}</label>
                             <br>
                             <label for='adress'>住所：{{ $shop->adress }}</label>

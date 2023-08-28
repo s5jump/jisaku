@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\User;
+
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Http\Requests\ResetInputMailRequest;
 use App\Mail\ResetPasswordMail;

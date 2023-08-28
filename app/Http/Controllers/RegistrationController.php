@@ -64,7 +64,6 @@ class RegistrationController extends Controller
     //プロフィール削除
     public function profileDelete(Request $post){
         $user = Auth::user();
-        // //$user=User::find($id)->delete();
        
         $user = User::find($post->input('post'));
         $user->delete();
@@ -188,22 +187,37 @@ class RegistrationController extends Controller
    }
 
    //ブックマーク
-//    public function bookmark(Request $request){
-//     $bookmark=new Bookmark;
-//     $bookmark->shop_id = $request->shop_id;
-//     $bookmark->user_id = Auth::user()->id;
+   public function bookmark(Request $request)
+{
+    $user_id = Auth::user()->id; //1.ログインユーザーのid取得
+    $post_id =Auth::id();//2.投稿idの取得
+    $shop_id =Auth::id(); 
+    $already_liked = Bookmark::where('user_id', $user_id)->where('post_id', $post_id)->where('shop_id', $shop_id)->first(); //3.
 
-//     $bookmark->save();
-//     return redirect ('/',[
-//         'bookmark'=>$bookmark,
-//     ]);
-//     }
+    if (!$already_liked) { //もしこのユーザーがこの投稿にまだいいねしてなかったら
+        $bookmark = new Bookmark; //4.Bookmarkクラスのインスタンスを作成
+        $bookmark->post_id = Auth::id(); //Bookmarkインスタンスにpost_id,user_id,shop_idをセット
+        $bookmark->user_id = Auth::user()->id;
+        $bookmark->shop_id = Auth::id();
+        $bookmark->save();
+    } else { //もしこのユーザーがこの投稿に既にいいねしてたらdelete
+        Bookmark::where('post_id', $post_id)->where('user_id', $user_id)->where('shop_id', $shop_id)->delete();
+    }
+    //5.この投稿の最新の総いいね数を取得
+    // $review_likes_count = Review::withCount('likes')->findOrFail($review_id)->likes_count;
+    // $param = [
+    //     'review_likes_count' => $review_likes_count,
+    // ];
+    // //6.JSONデータをjQueryに返す
+    // return response()->json($param); 
+    
 
-//    public function bookmarkForm(Request $request){
-//     return view ('bookmark',[
-//         'bookmark'=>$bookmark,
-//     ]);
-//     }
+    // return view('shop',[
+    // //    'bookmark'=>$bookmark,
+    //       'request'=>$request,
+    
+    // ]);
+}
    
 
 
