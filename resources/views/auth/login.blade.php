@@ -30,6 +30,8 @@
               </div>
              
           </div>
+
+          
         </nav>
         <div class="text-center">
           <a href="{{ route('password') }}">※パスワード忘れた方はこちらから</a>

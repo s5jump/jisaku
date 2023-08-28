@@ -61,12 +61,19 @@ Route::get('/shop_information',[DisplayController::class,'shopInformation'])->na
 //店舗詳細
 Route::get('/shop',[RegistrationController::class,'shopDetail'])->name('shop.detail');
 
+//管理者ページ
+Route::group(['middleware' => ['admin.auth']], function () {
+    Route::get('/admin', 'admin\AdminMainController@show');
+    Route::post('/admin/logout', 'admin\AdminLogoutController@logout');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/login', 'admin\AdminLoginController@showForm');
+    Route::post('/login', 'admin\AdminLoginController@login');
+});
 
 
 
-
-//新規登録内容確認
-//Route::post('/register/{register}/register',[RegistrationController::class,'registerCheck'])->name('register.check');
 
 
 
