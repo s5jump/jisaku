@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
       <div class="col col-md-offset-3 col-md-6">
         <nav class="card mt-5">
-          <div class="card-header">ログイン</div>
+          <div class="card-header">店舗管理者新規登録</div>
           <div class="card-body">
             @if($errors->any())
               <div class="alert alert-danger">
@@ -14,11 +14,11 @@
                 @endforeach
               </div>
             @endif
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ route('shop.register') }}" method="POST">
               @csrf
               <div class="form-group">
                 <label for="name">ユーザー名</label>
-                <input type="name" class="form-control" id="name" name="name" value="{{ old('name') }}" />
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" />
               </div>
               <div class="form-group">
                 <label for="email">メールアドレス</label>
@@ -26,24 +26,19 @@
               </div>
               <div class="form-group">
                 <label for="password">パスワード</label>
-                <input type="password" class="form-control" id="password" name="password" />
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+              <div class="form-group">
+                <label for="password-confirm">パスワード（確認）</label>
+                <input type="password" class="form-control" id="password-confirm" name="password_confirmation">
               </div>
              
-          </div>
-          <div class="text-center">
-          <a href="{{ url('admin/login') }}">※管理者の方はこちらから</a>
-        </div>
-        <br>
-          
-        </nav>
-        <br>
-        <div class="text-center">
-          <a href="{{ route('password') }}">※パスワード忘れた方はこちらから</a>
-        </div>
-        <div class="text-right">
-                <button type="submit" class="btn btn-primary">ログイン</button>
+              <div class="text-right">
+                <button type="submit" class="btn btn-primary">登録</button>
               </div>
             </form>
+          </div>
+        </nav>
       </div>
     </div>
   </div>

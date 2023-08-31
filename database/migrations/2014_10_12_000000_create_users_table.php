@@ -21,10 +21,16 @@ class CreateUsersTable extends Migration
             $table->string('password','100');
             $table->string('image','100')->nullable();
             $table->integer('role')->default(0);
-            $table->tinyInteger('del_flg')->default(0); 
+            $table->tinyInteger('del_flg')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            //https://loop-never-ends.com/laravel-unique-columns/
+            // $table->string('reset_password_access_key','64')->nullable()->unique();
+            // $table->timestamp('reset_password_expire_at')->nullable();
+
+            //カラム追加する
+            //https://qiita.com/rikako_hira/items/6a0a2b972ddbf638fe
         });
     }
 

@@ -49,9 +49,23 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
     Route::get('/bookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
 
+    
+    
+
+
 });
 
+
+
 Route::get('/', [DisplayController::class,'index']);
+
+//店舗新規登録ページへ
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
+    Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
+    //店舗管理者ホームページ
+    // Route::get('/',[RegistrationController::class,'shopHome'])->name('shop.home');
+});
 
 //投稿詳細
 Route::get('/post/{post}/detail',[DisplayController::class,'postDetail'])->name('post.detail');
@@ -61,15 +75,33 @@ Route::get('/shop_information',[DisplayController::class,'shopInformation'])->na
 //店舗詳細
 Route::get('/shop',[RegistrationController::class,'shopDetail'])->name('shop.detail');
 
+
+
 //管理者ページ
 Route::group(['middleware' => ['admin.auth']], function () {
-    Route::get('/admin', 'admin\AdminMainController@show');
+    Route::get('/admin', 'admin\AdminMainController@show')->name('toppage');
     Route::post('/admin/logout', 'admin\AdminLogoutController@logout');
+
+   
 });
 
 Route::group(['prefix' => 'admin'], function () {
+    //新規登録
+    Route::get('/admin/register',[RegistrationController::class,'adminRegister'])->name('admin.register');
+    Route::post('/admin/register',[RegistrationController::class,'adminRegisters']);
+    //ログイン
     Route::get('/login', 'admin\AdminLoginController@showForm');
     Route::post('/login', 'admin\AdminLoginController@login');
+
+
+     //ユーザーリスト
+     Route::get('/admin/user_list',[RegistrationController::class,'adminUserList'])->name('admin.user.list');
+     //ユーザーリスト詳細
+     Route::get('/admin/user_list/detail',[RegistrationController::class,'adminUserListDetail'])->name('admin.user.list.detail');
+
+     //投稿リスト
+     Route::get('/admin/post_list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
+
 });
 
 
@@ -77,9 +109,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-//店舗新規登録
-Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
-Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
+
 
 
 
@@ -87,8 +117,9 @@ Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
 Route::prefix('reset')->group(function () {
 //パスワード再設定画面へ
     Route::get('/password',[UsersController::class,'password'])->name('password');
+    //Route::post('/password',[UsersController::class,'password'])->name('password');
         //メール送信
-        Route::get('/password/email',[UsersController::class,'passwordEmail'])->name('password.email');
+       // Route::get('/password/email',[UsersController::class,'passwordEmail'])->name('password.email');
         Route::post('/password/email',[UsersController::class,'passwordEmail'])->name('password.email');
         // メール送信完了
         Route::get('/password/send',[UsersController::class,'passwordSend'])->name('password.send');

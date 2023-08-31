@@ -2,6 +2,8 @@
 
 @section('content')
 <main>
+
+
     <h2>メール送信完了</h2>
     <div>
         <p>パスワード再設定用のメールを送信しました</p>
@@ -10,5 +12,6 @@
     <div>
       <a href="{{ route('login') }}">ログイン画面へ</a>
     </div>
+    
 </main>
 @endsection

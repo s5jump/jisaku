@@ -23,6 +23,6 @@ class AdminLoginController extends Controller
             return redirect('admin');
         }
 
-        return redirect('admin/login');
+        return view('admin.toppage');
     }
 }

@@ -43,7 +43,7 @@ class RegistrationController extends Controller
         return view('auth.register_check');
     }
 
-    //新規登録完了
+   
 
     //プロフィール編集 https://qiita.com/crosawassant/items/d8b434f0bc98455165b4
     public function profile(){
@@ -72,11 +72,105 @@ class RegistrationController extends Controller
         return redirect('/');
     }
     
+    //管理者登録
+    function adminRegister(){
+        return view('admin.register');
+      }
 
-    //店舗新規登録
-    public function shopRegister(){
-        return view ('auth.shop_register');
+    function adminRegisters(Request $request){
+        $user=new User;
+       
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->image=$request->image;
+        
+        $user->role=1;
+
+        $user->password=Hash::make($request['password']);
+
+        $user->save();
+
+        return view('admin.toppage');
     }
+    //管理者　ユーザーリスト確認
+        function adminUserList(){
+            return view('admin.user_list');
+        }
+        //ユーザーリスト確認詳細
+        function adminUserListDetail(){
+            return view('admin.user_list_detail');
+        }
+        //投稿リスト
+        function adminPostList(Comment $comment){
+            return view('admin.post_list',[
+                'comment'=>$comment,
+            ]);
+        }
+    
+
+   
+
+    //店舗管理者新規登録
+    public function shopRegister(){
+        return view ('shop.register');
+    }
+    // public function shopRegisters(Request $request){
+
+    //        //検索 
+    //        $keyword = $request->input('keyword');
+    //        $review=$request->input('review');
+   
+           
+    //        $posts=Post::query();
+          
+    //        $posts=Post::join('shops','posts.shop_id','=','shops.id');
+               
+   
+    //        //$keyword　が空ではない場合、検索処理を実行します
+    //        if (!empty($keyword)) {
+    //            $posts->where(function ($posts) use ($keyword) {
+    //                $posts->where('posts.title', 'like' , "%{$keyword}%")
+    //                    ->orWhere('posts.comment', 'like', "%{$keyword}%")
+    //                    ->orWhere('shops.adress', 'like', "%{$keyword}%");
+    //            });
+    //        }  
+          
+    //        if (isset($review)) {
+    //            $posts->where('review', $review);
+    //        }
+         
+    //        $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
+          
+          
+    //     $user=new User;
+    //     // $shop=new Shop;
+
+    //     $user->name=$request->name;
+    //     $user->email=$request->email;
+    //     $user->image=$request->image;
+    //     $user->password=Hash::make($request['password']);
+    //     $user->role=2;
+
+    //     // $shop->name=$request->name;
+    //     // $shop->adress=$request->adress;
+    //     // $shop->comment=$request->comment;
+    //     // $shop->image=$request->image;
+
+    //     $user->save();
+
+
+    //     return view ('shop.home',[
+    //         'posts'=>$posts,
+    //           'keyword'=>$keyword,
+    //           'review'=>$review,
+    //     ]);
+    // }
+    //店舗管理者ホームページ
+    // public function shopHome(){
+    //     return view ('shop.home',[
+            
+    //     ]);
+    // }
 
 
     

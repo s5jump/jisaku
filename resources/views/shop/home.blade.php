@@ -47,7 +47,8 @@
         @if(Auth::check())
         <div class="card-header">
             <h1><span class="my-navbar-item">{{ Auth::user()->name }}</span>
-        </h1>
+       
+          
             <p> <a href="{{ route('my.post') }}">自分の投稿</a>　　　　　　　　　　　
             <a href="{{ route('profile') }}">プロフィール編集</a></p>
             </div>
@@ -67,10 +68,8 @@
 
             @if(Auth::check())
             
-            <a href="">
-                <button type='button' class='btn btn-success'>ブックマーク</button>
-            </a>
-
+           
+            
             
             <a href="{{ route('create.post') }}">
                 <button type='button' class='btn btn-primary'>投稿する</button>
