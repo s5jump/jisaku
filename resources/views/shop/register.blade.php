@@ -32,6 +32,10 @@
                 <label for="password-confirm">パスワード（確認）</label>
                 <input type="password" class="form-control" id="password-confirm" name="password_confirmation">
               </div>
+              <div class="form-group">
+                <label for="image">アイコン写真</label>
+                <input type="file" class="form-control" id="image" name="image" />
+              </div>
              
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">登録</button>

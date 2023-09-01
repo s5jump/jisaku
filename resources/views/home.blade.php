@@ -46,8 +46,11 @@
         
         @if(Auth::check())
         <div class="card-header">
-            <h1><span class="my-navbar-item">{{ Auth::user()->name }}</span>
+            <h1><span class="my-navbar-item">{{ optional(Auth::user())->name }}</span>
         </h1>
+        @can ('shopAdmin')
+        <p> <a href="{{ route('shop.home') }}">店舗情報</a></p>
+        @endcan
             <p> <a href="{{ route('my.post') }}">自分の投稿</a>　　　　　　　　　　　
             <a href="{{ route('profile') }}">プロフィール編集</a></p>
             </div>
@@ -105,7 +108,7 @@
                               
                                 @if(Auth::id())
                             <th scope='col'>
-                                {{ Auth::user()->name }}
+                                {{ optional(Auth::user())->name }}
                             </th>
                             @endif
                            

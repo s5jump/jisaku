@@ -62,15 +62,18 @@ class RegistrationController extends Controller
     }
    
     //プロフィール削除
-    public function profileDelete(Request $post){
+    public function profileDelete(Request $request){
         $user = Auth::user();
-       
-        $user = User::find($post->input('post'));
+        //$user = User::find($request->input('id'));
         $user->delete();
         
         // $user->save();
-        return redirect('/');
+        return redirect('/',[
+            
+            
+        ]);
     }
+
     
     //管理者登録
     function adminRegister(){
@@ -110,72 +113,75 @@ class RegistrationController extends Controller
 
    
 
-    //店舗管理者新規登録
+    //店舗管理者
     public function shopRegister(){
         return view ('shop.register');
     }
-    // public function shopRegisters(Request $request){
+    function shopRegisters(Request $request){
+        $user_id = Auth::id();
+        //検索 
+        $keyword = $request->input('keyword');
+        $review=$request->input('review');
+        $posts=Post::query();
+        $posts=Post::join('shops','posts.shop_id','=','shops.id');
 
-    //        //検索 
-    //        $keyword = $request->input('keyword');
-    //        $review=$request->input('review');
-   
-           
-    //        $posts=Post::query();
-          
-    //        $posts=Post::join('shops','posts.shop_id','=','shops.id');
-               
-   
-    //        //$keyword　が空ではない場合、検索処理を実行します
-    //        if (!empty($keyword)) {
-    //            $posts->where(function ($posts) use ($keyword) {
-    //                $posts->where('posts.title', 'like' , "%{$keyword}%")
-    //                    ->orWhere('posts.comment', 'like', "%{$keyword}%")
-    //                    ->orWhere('shops.adress', 'like', "%{$keyword}%");
-    //            });
-    //        }  
-          
-    //        if (isset($review)) {
-    //            $posts->where('review', $review);
-    //        }
-         
-    //        $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
-          
-          
-    //     $user=new User;
-    //     // $shop=new Shop;
+        //$keyword　が空ではない場合、検索処理を実行します
+        if (!empty($keyword)) {
+            $posts->where(function ($posts) use ($keyword) {
+                $posts->where('posts.title', 'like' , "%{$keyword}%")
+                    ->orWhere('posts.comment', 'like', "%{$keyword}%")
+                    ->orWhere('shops.adress', 'like', "%{$keyword}%");
+            });
+        }  
+        if (isset($review)) {
+            $posts->where('review', $review);
+        }
+        $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
+       
+        $user=new User;
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->image=$request->image;
+        $user->role=2;
+        $user->password=Hash::make($request['password']);
 
-    //     $user->name=$request->name;
-    //     $user->email=$request->email;
-    //     $user->image=$request->image;
-    //     $user->password=Hash::make($request['password']);
-    //     $user->role=2;
+        $user->save();
 
-    //     // $shop->name=$request->name;
-    //     // $shop->adress=$request->adress;
-    //     // $shop->comment=$request->comment;
-    //     // $shop->image=$request->image;
-
-    //     $user->save();
-
-
-    //     return view ('shop.home',[
-    //         'posts'=>$posts,
-    //           'keyword'=>$keyword,
-    //           'review'=>$review,
-    //     ]);
-    // }
-    //店舗管理者ホームページ
-    // public function shopHome(){
-    //     return view ('shop.home',[
+        return view('home',[
+            'posts'=>$posts,
+            'keyword'=>$keyword,
+            'review'=>$review,
+        ]);
+    }
+        //店舗管理者店舗情報
+        public function shopHome(){
+            return view ('shop.home',[
+                
+            ]);
+        }
+         //店舗新規登録
+        public function shopNew(){
+            return view ('shop.register_new');
+        }
+        public function shopNews(Request $request){
+            $shop=new Shop;
+       
+            $shop->name=$request->name;
+            $shop->adress=$request->adress;
+            $shop->comment=$request->comment;
+            $shop->image=$request->image;
             
-    //     ]);
-    // }
+            //Auth::user()->post()->save($shop);
+            $shop->save();
+    
+            return  redirect('/');
+        }
+        
 
 
     
      //店舗詳細
-     public function shopDetail(shop $shop){
+    public function shopDetail(shop $shop){
         $shop = Shop::all();
         return view('shop',[
             'shops'=>$shop,

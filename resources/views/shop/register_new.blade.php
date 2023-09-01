@@ -14,12 +14,12 @@
                 @endforeach
               </div>
             @endif
-            <form action="{{ route('shop.register') }}" method="POST">
+            <form action="{{ route('shop.new') }}" method="POST">
               @csrf
             
               <div class="form-group">
-                <label for="shop">店名</label>
-                <input type="text" class="form-control" id="shop" name="shop" value="{{ old('shop') }}"/>
+                <label for="name">店名</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}"/>
               </div>
               <div class="form-group">
                 <label for="adress">住所</label>

@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->integer('shop_id');
             $table->string('title','100');
             $table->integer('review');
-            $table->string('image','200')->nullable();
+            // $table->string('image','200')->nullable();
             $table->tinyInteger('del_flg')->default(0); 
             $table->string('comment','100');
             $table->timestamps();

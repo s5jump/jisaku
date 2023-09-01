@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'],function(){
 
     //プロフィール削除
     Route::get('/profile/{post}/delete',[RegistrationController::class,'profileDelete'])->name('profile.delete');
-    
+    //Route::post('/profile/{post}/delete',[RegistrationController::class,'profileDeletes']);
 
     //新規投稿post
     Route::get('/create_post',[RegistrationController::class,'createPostForm'])->name('create.post');
@@ -55,17 +55,7 @@ Route::group(['middleware' => 'auth'],function(){
 
 });
 
-
-
 Route::get('/', [DisplayController::class,'index']);
-
-//店舗新規登録ページへ
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
-    Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
-    //店舗管理者ホームページ
-    // Route::get('/',[RegistrationController::class,'shopHome'])->name('shop.home');
-});
 
 //投稿詳細
 Route::get('/post/{post}/detail',[DisplayController::class,'postDetail'])->name('post.detail');
@@ -76,33 +66,47 @@ Route::get('/shop_information',[DisplayController::class,'shopInformation'])->na
 Route::get('/shop',[RegistrationController::class,'shopDetail'])->name('shop.detail');
 
 
+//店舗管理者ページへ
+Route::group(['prefix' => 'admin.auth'], function () {
+    Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
+   
+    //店舗管理者店舗情報
+    Route::get('/home/shop',[RegistrationController::class,'shopHome'])->name('shop.home');
+    //店舗新規登録
+    Route::get('/new/shop',[RegistrationController::class,'shopNew'])->name('shop.new');
+    Route::post('/new/shop',[RegistrationController::class,'shopNews']);
+});
+Route::group(['prefix' => 'admin.auth'], function () {
+    Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
+    });
+
+
+
 
 //管理者ページ
 Route::group(['middleware' => ['admin.auth']], function () {
     Route::get('/admin', 'admin\AdminMainController@show')->name('toppage');
     Route::post('/admin/logout', 'admin\AdminLogoutController@logout');
 
-   
 });
+    Route::group(['prefix' => 'admin'], function () {
+        //新規登録
+        Route::get('/admin/register',[RegistrationController::class,'adminRegister'])->name('admin.register');
+        Route::post('/admin/register',[RegistrationController::class,'adminRegisters']);
+        //ログイン
+        Route::get('/login', 'admin\AdminLoginController@showForm');
+        Route::post('/login', 'admin\AdminLoginController@login');
 
-Route::group(['prefix' => 'admin'], function () {
-    //新規登録
-    Route::get('/admin/register',[RegistrationController::class,'adminRegister'])->name('admin.register');
-    Route::post('/admin/register',[RegistrationController::class,'adminRegisters']);
-    //ログイン
-    Route::get('/login', 'admin\AdminLoginController@showForm');
-    Route::post('/login', 'admin\AdminLoginController@login');
 
+        //ユーザーリスト
+        Route::get('/admin/user_list',[RegistrationController::class,'adminUserList'])->name('admin.user.list');
+        //ユーザーリスト詳細
+        Route::get('/admin/user_list/detail',[RegistrationController::class,'adminUserListDetail'])->name('admin.user.list.detail');
 
-     //ユーザーリスト
-     Route::get('/admin/user_list',[RegistrationController::class,'adminUserList'])->name('admin.user.list');
-     //ユーザーリスト詳細
-     Route::get('/admin/user_list/detail',[RegistrationController::class,'adminUserListDetail'])->name('admin.user.list.detail');
+        //投稿リスト
+        Route::get('/admin/post_list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
 
-     //投稿リスト
-     Route::get('/admin/post_list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
-
-});
+    });
 
 
 
