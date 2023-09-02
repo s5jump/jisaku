@@ -115,29 +115,9 @@ class RegistrationController extends Controller
 
     //店舗管理者
     public function shopRegister(){
-        return view ('shop.register');
+        return view ('auth.shop_register');
     }
     function shopRegisters(Request $request){
-        $user_id = Auth::id();
-        //検索 
-        $keyword = $request->input('keyword');
-        $review=$request->input('review');
-        $posts=Post::query();
-        $posts=Post::join('shops','posts.shop_id','=','shops.id');
-
-        //$keyword　が空ではない場合、検索処理を実行します
-        if (!empty($keyword)) {
-            $posts->where(function ($posts) use ($keyword) {
-                $posts->where('posts.title', 'like' , "%{$keyword}%")
-                    ->orWhere('posts.comment', 'like', "%{$keyword}%")
-                    ->orWhere('shops.adress', 'like', "%{$keyword}%");
-            });
-        }  
-        if (isset($review)) {
-            $posts->where('review', $review);
-        }
-        $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
-       
         $user=new User;
         $user->name=$request->name;
         $user->email=$request->email;
@@ -146,22 +126,22 @@ class RegistrationController extends Controller
         $user->password=Hash::make($request['password']);
 
         $user->save();
-
-        return view('home',[
-            'posts'=>$posts,
-            'keyword'=>$keyword,
-            'review'=>$review,
-        ]);
+        return  redirect('/');
+        
     }
         //店舗管理者店舗情報
-        public function shopHome(){
-            return view ('shop.home',[
-                
+        public function shopHome(Shop $shop){
+            //$shop = Shop::where('user_id', \Auth::user()->id)->get();
+            $shop = Shop::all();
+            //$shop = Shop::where('user_id',Auth::id())->get();
+            
+            return view ('auth.home',[
+                'shop'=>$shop,
             ]);
         }
          //店舗新規登録
         public function shopNew(){
-            return view ('shop.register_new');
+            return view ('auth.register_new');
         }
         public function shopNews(Request $request){
             $shop=new Shop;
@@ -170,11 +150,41 @@ class RegistrationController extends Controller
             $shop->adress=$request->adress;
             $shop->comment=$request->comment;
             $shop->image=$request->image;
+            $shop->user_id=Auth::id();
             
-            //Auth::user()->post()->save($shop);
+            //Auth::user()->save($shop);
             $shop->save();
     
             return  redirect('/');
+        }
+        
+        //店舗編集
+        public function editShopForm(Shop $shop){
+            
+            return view ('auth.edit_shop',[
+                'shop'=>$shop,
+            ]);
+        }
+
+        public function editShop(Shop $shop, Request $request){
+            $record=$shop;
+
+            $shop->name=$request->name;
+            $shop->adress=$request->adress;
+            $shop->comment=$request->comment;
+            $shop->image=$request->image;
+            $shop->user_id=Auth::id();
+        
+            Auth::user()->shop()->save($record);
+          
+            return redirect('/');
+        }
+
+        //店舗削除
+        public function ShopDelete(Shop $shop){
+            $shop->delete();
+        
+            return redirect('/');
         }
         
 
@@ -247,21 +257,6 @@ class RegistrationController extends Controller
     }
 
     //投稿削除
-    public function editPosts(Post $post, CreateDate $request){
-        $record=$post;
-
-        $columns=['title','comment','image'];
-        foreach($columns as $column){
-            $record->$column=$request->$column;
-        }
-        $record->review=$request->review_id;
-        $post->user_id=Auth::id();
-        $post->shop_id=Auth::id();
-       
-        Auth::user()->post()->save($record);
-        //$record->save();
-        return redirect('/');
-    }
     public function postDelete(Post $post){
         $post->delete();
       

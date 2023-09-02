@@ -34,12 +34,12 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/my_post',[DisplayController::class,'myPost'])->name('my.post');
 
      //投稿編集
-     Route::get('/edit_post/{post}',[RegistrationController::class,'editPostForm'])->name('edit.post');
-     Route::post('/edit_post/{post}',[RegistrationController::class,'editPost']);
+     Route::get('/edit/post/{post}',[RegistrationController::class,'editPostForm'])->name('edit.post');
+     Route::post('/edit/post/{post}',[RegistrationController::class,'editPost']);
  
      //投稿削除
-     Route::get('/post_delete/{post}',[RegistrationController::class,'postDelete'])->name('post.delete');
-     Route::post('/post_delete/{post}',[RegistrationController::class,'postDeletes']);
+     Route::get('/post/delete/{post}',[RegistrationController::class,'postDelete'])->name('post.delete');
+     Route::post('/post/delete/{post}',[RegistrationController::class,'postDeletes']);
 
     //違反報告
     Route::get('/breach',[RegistrationController::class,'breachForm'])->name('breach');
@@ -49,13 +49,31 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
     Route::get('/bookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
 
-    
-    
+    //店舗管理者ページへ
+    Route::group(['prefix' => 'admin'], function () {
+        //店舗管理者
+        Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
+        Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
+        //店舗管理者店舗情報
+        Route::get('/home/shop',[RegistrationController::class,'shopHome'])->name('shop.home');
+        //店舗新規登録
+        Route::get('/new/shop',[RegistrationController::class,'shopNew'])->name('shop.new');
+        Route::post('/new/shop',[RegistrationController::class,'shopNews']);
+        });
+        //店舗編集
+        Route::get('/edit/shop/{shop}',[RegistrationController::class,'editShopForm'])->name('edit.shop');
+        Route::post('/edit/shop/{shop}',[RegistrationController::class,'editShop']);
+        //店舗削除
+        Route::get('/shop/delete/{shop}',[RegistrationController::class,'shopDelete'])->name('shop.delete');
+        Route::post('/shop/delete/{shop}',[RegistrationController::class,'shopDeletes']);
+
 
 
 });
 
 Route::get('/', [DisplayController::class,'index']);
+
+
 
 //投稿詳細
 Route::get('/post/{post}/detail',[DisplayController::class,'postDetail'])->name('post.detail');
@@ -66,19 +84,6 @@ Route::get('/shop_information',[DisplayController::class,'shopInformation'])->na
 Route::get('/shop',[RegistrationController::class,'shopDetail'])->name('shop.detail');
 
 
-//店舗管理者ページへ
-Route::group(['prefix' => 'admin.auth'], function () {
-    Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
-   
-    //店舗管理者店舗情報
-    Route::get('/home/shop',[RegistrationController::class,'shopHome'])->name('shop.home');
-    //店舗新規登録
-    Route::get('/new/shop',[RegistrationController::class,'shopNew'])->name('shop.new');
-    Route::post('/new/shop',[RegistrationController::class,'shopNews']);
-});
-Route::group(['prefix' => 'admin.auth'], function () {
-    Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
-    });
 
 
 

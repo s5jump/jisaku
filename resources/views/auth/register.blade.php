@@ -14,8 +14,7 @@
                 @endforeach
               </div>
             @endif
-
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('shop.register') }}" method="POST">
               @csrf
               <div class="form-group">
                 <label for="name">ユーザー名</label>
@@ -37,15 +36,14 @@
                 <label for="image">アイコン写真</label>
                 <input type="file" class="form-control" id="image" name="image" />
               </div>
-
               <div class="text-center">
-                <a href="{{ route('admin.register') }}">※管理者はこちらから</a>
-              </div>
-              <br>
-              <div class="text-center">
-                <a href="{{ route('shop.register') }}">※店舗管理者はこちらから</a>
-              </div>
-                </div>
+          <a href="{{ route('admin.register') }}">※管理者の方はこちらから</a>
+        </div>
+        <br>
+        <div class="text-center">
+          <a href="{{ route('shop.register') }}">※店舗管理者の方はこちらから</a>
+        </div> 
+             
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">登録</button>
               </div>
