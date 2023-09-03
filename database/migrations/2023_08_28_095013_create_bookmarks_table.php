@@ -25,9 +25,9 @@ class CreateBookmarksTable extends Migration
             //usersテーブルの外部キー設定
             //userテーブルのidカラムを参照するconstrainedメソッド
             //削除時のオプション
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
-            $table->foreign('shop_id')->references('id')->on('shops')->cascadeOnDelete();
+            // $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            // $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
+            // $table->foreign('shop_id')->references('id')->on('shops')->cascadeOnDelete();
         
         });
     }

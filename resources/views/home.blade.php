@@ -49,7 +49,12 @@
             <h1><span class="my-navbar-item">{{ optional(Auth::user())->name }}</span>
         </h1>
         @can ('shopAdmin')
-        <p> <a href="{{ route('shop.home') }}">店舗情報</a></p>
+        <p> <a href="{{ route('shop.home') }}">店舗情報</a>　　　　　　　　　　　　         
+        <a href="{{ route('shop.new') }}">
+                                <button type='submit' class='btn btn-primary '>店舗登録する</button></a>
+                            
+                              </p>
+        
         @endcan
             <p> <a href="{{ route('my.post') }}">自分の投稿</a>　　　　　　　　　　　
             <a href="{{ route('profile') }}">プロフィール編集</a></p>
@@ -106,7 +111,7 @@
                             <th scope='col'>
                                 {{ $post['title'] }}</th>
                               
-                                @if(Auth::id())
+                                @if(Auth::user())
                             <th scope='col'>
                                 {{ optional(Auth::user())->name }}
                             </th>

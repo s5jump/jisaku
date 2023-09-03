@@ -74,6 +74,14 @@ class RegistrationController extends Controller
         ]);
     }
 
+     //店舗詳細
+     public function shopDetail(Shop $shop ){
+        return view('shop',[
+            'shop'=>$shop,
+        ]);
+       
+    }
+
     
     //管理者登録
     function adminRegister(){
@@ -96,8 +104,11 @@ class RegistrationController extends Controller
         return view('admin.toppage');
     }
     //管理者　ユーザーリスト確認
-        function adminUserList(){
-            return view('admin.user_list');
+        function adminUserList(Post $post){
+            
+            return view('admin.user_list',[
+
+            ]);
         }
         //ユーザーリスト確認詳細
         function adminUserListDetail(){
@@ -105,6 +116,10 @@ class RegistrationController extends Controller
         }
         //投稿リスト
         function adminPostList(Comment $comment){
+
+            // $post=Post::join('comments','posts.post_id','=','posts.id');
+
+            //$comment = Comment::orderBy('post_id', 'DESC')->take(20)->get();
             return view('admin.post_list',[
                 'comment'=>$comment,
             ]);
@@ -114,6 +129,7 @@ class RegistrationController extends Controller
    
 
     //店舗管理者
+   
     public function shopRegister(){
         return view ('auth.shop_register');
     }
@@ -126,38 +142,46 @@ class RegistrationController extends Controller
         $user->password=Hash::make($request['password']);
 
         $user->save();
-        return  redirect('/');
-        
+        return view ('auth.shop_registration');
+        // return redirect('/');
     }
-        //店舗管理者店舗情報
-        public function shopHome(Shop $shop){
-            //$shop = Shop::where('user_id', \Auth::user()->id)->get();
-            $shop = Shop::all();
-            //$shop = Shop::where('user_id',Auth::id())->get();
-            
-            return view ('auth.home',[
-                'shop'=>$shop,
-            ]);
-        }
+       
          //店舗新規登録
+        //  public function shopRegistration(){
+        //     return view ('auth.shop_registration');
+        // }
         public function shopNew(){
             return view ('auth.register_new');
         }
-        public function shopNews(Request $request){
-            $shop=new Shop;
+        public function shopNews(Shop $shop,Request $request){
+            $record=$shop;
        
             $shop->name=$request->name;
             $shop->adress=$request->adress;
             $shop->comment=$request->comment;
+
             $shop->image=$request->image;
+            //$shop->image=null;
             $shop->user_id=Auth::id();
+            //$shop->user_id=1;
             
             //Auth::user()->save($shop);
             $shop->save();
-    
+
             return  redirect('/');
         }
         
+         //店舗管理者店舗情報
+         public function shopHome(Shop $shop){
+            //ログインしているユーザーのみ　https://biz.addisteria.com/how_to_get_data/
+            $auth=auth()->user()->id;
+            $shop=Shop::where('user_id', $auth)->get();
+            //return view('auth.home', compact('shops'));
+            // $shop=Shop::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
+            return view ('auth.home',[
+                'shops'=>$shop,
+            ]);
+        }
         //店舗編集
         public function editShopForm(Shop $shop){
             
@@ -176,8 +200,9 @@ class RegistrationController extends Controller
             $shop->user_id=Auth::id();
         
             Auth::user()->shop()->save($record);
-          
+            
             return redirect('/');
+
         }
 
         //店舗削除
@@ -190,14 +215,7 @@ class RegistrationController extends Controller
 
 
     
-     //店舗詳細
-    public function shopDetail(shop $shop){
-        $shop = Shop::all();
-        return view('shop',[
-            'shops'=>$shop,
-        ]);
-       
-    }
+    
 
    
 

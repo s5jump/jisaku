@@ -50,11 +50,11 @@ class DisplayController extends Controller
             $posts->where('review', $review);
         }
        //DD($posts);
-       //$posts=$posts->orderBy('created_at', 'desc')->get();
+       //$posts=Post::orderBy('created_at', 'desc')->get();
         $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
-        //$pusts=Post::latest('updated_at')->get()->toArray();
-        //$posts=$posts->get()->toArray();
-        //$posts = Post::all();
+       // $pusts=Post::latest('created_at')->get()->toArray();
+        //$posts=Post::get()->toArray();
+       //$posts=$posts->get();
        //DD($posts);
         
         return view('home',[
@@ -73,17 +73,20 @@ class DisplayController extends Controller
        
     }
     //店舗情報一覧
-    public function shopInformation(shop $shop){
+    public function shopInformation(Shop $shop,Post $post){
         $shop = Shop::all();
 
-        // ユーザーごとにグループ化して平均値を計算
-        // $post = DB::table('posts')
+        // $posts=Post::join('shops','posts.shop_id','=','shops.id');
+        // // ユーザーごとにグループ化して平均値を計算
+        // $posts = DB::table('posts')
         //         ->avg('review');
-       //https://teratail.com/questions/3052
+                
+                //Work::get()->avg('progress');
+
         
         return view('shop_information',[
             'shops'=>$shop,
-            //'post'=>$post,
+            //'posts'=>$posts,
         ]);
        
     }

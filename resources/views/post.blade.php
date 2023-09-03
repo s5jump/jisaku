@@ -20,8 +20,9 @@
                                 
                             
                             </div>
-                            @if(Auth::check())
                             <div class="text-right">
+                            @if(Auth::check())
+                           
                             <a href="{{ route('breach') }}">
                                     <button type="submit" class="btn btn-primary">違反報告</button></a>
                             @endif

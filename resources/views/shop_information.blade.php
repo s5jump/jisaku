@@ -44,12 +44,12 @@
                             <th scope='col'>
                             {{ $shop->image }}</th>
                           
-                            @endforeach
+                            
                             <th scope='col'>
-                                <a href="{{ route('shop.detail') }}">詳細</a></th>
+                                <a href="{{ route('shop.detail',['shop'=>$shop['id']]) }}">詳細</a></th>
                            
                             </tr>
-                           
+                            @endforeach
                             
                            
                             </tbody>
