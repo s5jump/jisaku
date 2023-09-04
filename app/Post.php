@@ -25,12 +25,12 @@ class Post extends Model
         return Bookmark::where('user_id', $user->id)->where('shop_id', $this->id)->where('post_id', $this->id)->first() !==null;
     }
 
-    protected $with = ['shops'];
+    // protected $with = ['shops'];
 
-    protected $appends = ['avg_score'];
+    // protected $appends = ['avg_score'];
 
-    public function getAvgStarAttribute()
-    {
-        return $this->attributes['avg_score'] = $this->posts->avg('review');
-    }
+    // public function getAvgStarAttribute()
+    // {
+    //     return $this->attributes['avg_score'] = $this->posts->avg('review');
+    // }
 }

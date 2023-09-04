@@ -22,14 +22,13 @@ use Illuminate\Support\Facades\Auth;
 class DisplayController extends Controller
 {
     public function index(Request $request){
-        $user_id = Auth::id();
+       // $user_id = Auth::id();
 
 
         //検索 
         $keyword = $request->input('keyword');
         $review=$request->input('review');
 
-        //$posts = Post::all();
         //$posts=Post::query()->latest();
         $posts=Post::query();
         //DD($posts);
@@ -50,12 +49,12 @@ class DisplayController extends Controller
             $posts->where('review', $review);
         }
        //DD($posts);
-       //$posts=Post::orderBy('created_at', 'desc')->get();
-        $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
+       //$posts=Post::where('created_at', 'desc')->latest()->get();
+       $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
        // $pusts=Post::latest('created_at')->get()->toArray();
         //$posts=Post::get()->toArray();
-       //$posts=$posts->get();
-       //DD($posts);
+       //$posts=$posts->orderBy('created_at', 'desc')->get()->toArray();
+       //$posts=Post::latest('created_at')->get()->toArray();
         
         return view('home',[
             'posts'=>$posts,
