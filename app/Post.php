@@ -9,7 +9,7 @@ class Post extends Model
     protected $fullable=['title','review','comment','image'];
 
     public function shop(){
-        return $this->hasMany('App\Shop','shop_id','id');
+        return $this->belongsTo('App\Shop');
     }
 
     public function comment(){

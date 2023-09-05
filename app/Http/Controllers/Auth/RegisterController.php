@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Http\Request;
+
 class RegisterController extends Controller
 {
     /*
@@ -39,6 +41,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        
     }
 
     /**
@@ -56,6 +59,8 @@ class RegisterController extends Controller
         ]);
     }
 
+
+    
     /**
      * Create a new user instance after a valid registration.
      *
@@ -64,10 +69,59 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if($input->role === '2'){
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'role'=>2,
+            ]);
+        }else{
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+
+
+
+        // User::create([
+        //         'name' => $data['name'],
+        //         'email' => $data['email'],
+        //         'password' => Hash::make($data['password']),
+        //     ]);
+        // return $input->role === '2';
+       
     }
+
+     //店舗管理者
+           
+     public function shopRegister(){
+        return view ('auth.register');
+    }
+    function shopRegisters(Request $request){
+        // $user=new User;
+        // $user->name=$request->name;
+        // $user->email=$request->email;
+        // $user->image=$request->image;
+        // $user->role=2;
+        // $user->password=Hash::make($request['password']);
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'role'=>2,
+        ]);
+
+        //$request->save();
+        
+        return view ('auth.shop_registration');
+       
+    }
+
+    
+
+    
+    
 }

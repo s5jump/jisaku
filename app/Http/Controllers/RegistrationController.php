@@ -26,22 +26,41 @@ use App\Bookmark;
 
 class RegistrationController extends Controller
 {
-    //新規登録内容確認 https://www.kamome-susume.com/laravel-img-upload/
-    public function registerCheck(Request $request){
-        $image = $request->file('image');//リクエストした画像を取得
-
-        if(isset($image)){//画像がセットされていれば保存実行
-            $path = $image->store('public');//publicに保存
-
-            if($path){//処理実行できたらDBに保存処理実行
-                User::create([//DBに登録
-                    'image'=>$path,
-                ]);
-            }
-        }
-
-        return view('auth.register_check');
+    //新規登録
+    public function register(){
+        return view ('auth.register');
     }
+    public function registerEdit(Request $request){
+        $user = new User;
+
+        //dd($request);
+        $columns=['name','email','image'];
+        foreach($columns as $column){
+            $user->$column=$request->$column;
+        }
+        $user->role=0;
+        $user->password=Hash::make($request['password']);
+        
+
+        $user->save();
+        return redirect('/');
+    }
+    //新規登録内容確認 https://www.kamome-susume.com/laravel-img-upload/
+    // public function registerCheck(Request $request){
+    //     $image = $request->file('image');//リクエストした画像を取得
+
+    //     if(isset($image)){//画像がセットされていれば保存実行
+    //         $path = $image->store('public');//publicに保存
+
+    //         if($path){//処理実行できたらDBに保存処理実行
+    //             User::create([//DBに登録
+    //                 'image'=>$path,
+    //             ]);
+    //         }
+    //     }
+
+    //     // return view('auth.register_check');
+    // }
 
    
 
@@ -55,6 +74,7 @@ class RegistrationController extends Controller
         foreach($columns as $column){
             $user->$column=$request->$column;
         }
+        $user->role=0;
         $user->password=Hash::make($request['password']);
 
         $user->save();
@@ -128,89 +148,89 @@ class RegistrationController extends Controller
 
    
 
-    //店舗管理者
-   
-    public function shopRegister(){
-        return view ('auth.shop_register');
-    }
-    function shopRegisters(Request $request){
-        $user=new User;
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->image=$request->image;
-        $user->role=2;
-        $user->password=Hash::make($request['password']);
-
-        $user->save();
-        return view ('auth.shop_registration');
-        // return redirect('/');
-    }
-       
-         //店舗新規登録
-        //  public function shopRegistration(){
-        //     return view ('auth.shop_registration');
-        // }
-        public function shopNew(){
-            return view ('auth.register_new');
-        }
-        public function shopNews(Shop $shop,Request $request){
-            $record=$shop;
-       
-            $shop->name=$request->name;
-            $shop->adress=$request->adress;
-            $shop->comment=$request->comment;
-
-            $shop->image=$request->image;
-            //$shop->image=null;
-            $shop->user_id=Auth::id();
-            //$shop->user_id=1;
-            
-            //Auth::user()->save($shop);
-            $shop->save();
-
-            return  redirect('/');
-        }
+      
+            //    //店舗管理者
+           
+            //    public function shopRegister(){
+            //     return view ('auth.shop_register');
+            // }
+            // function shopRegisters(Request $request){
+            //     $user=new User;
+            //     $user->name=$request->name;
+            //     $user->email=$request->email;
+            //     $user->image=$request->image;
+            //     $user->role=2;
+            //     $user->password=Hash::make($request['password']);
         
-         //店舗管理者店舗情報
-         public function shopHome(Shop $shop){
-            //ログインしているユーザーのみ　https://biz.addisteria.com/how_to_get_data/
-            $auth=auth()->user()->id;
-            $shop=Shop::where('user_id', $auth)->get();
-            //return view('auth.home', compact('shops'));
-            // $shop=Shop::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
-            return view ('auth.home',[
-                'shops'=>$shop,
-            ]);
-        }
-        //店舗編集
-        public function editShopForm(Shop $shop){
-            
-            return view ('auth.edit_shop',[
-                'shop'=>$shop,
-            ]);
-        }
-
-        public function editShop(Shop $shop, Request $request){
-            $record=$shop;
-
-            $shop->name=$request->name;
-            $shop->adress=$request->adress;
-            $shop->comment=$request->comment;
-            $shop->image=$request->image;
-            $shop->user_id=Auth::id();
+            //     $user->save();
+            //     return view ('auth.shop_registration');
+               
+            // }
+               
+                 //店舗新規登録
+                
+                public function shopNew(){
+                    return view ('auth.register_new');
+                }
+                public function shopNews(Shop $shop,Request $request){
+                    $record=$shop;
+               
+                    $shop->name=$request->name;
+                    $shop->adress=$request->adress;
+                    $shop->comment=$request->comment;
         
-            Auth::user()->shop()->save($record);
-            
-            return redirect('/');
-
-        }
-
-        //店舗削除
-        public function ShopDelete(Shop $shop){
-            $shop->delete();
+                    $shop->image=$request->image;
+                    //$shop->image=null;
+                    $shop->user_id=Auth::id();
+                    //$shop->user_id=1;
+                    
+                    //Auth::user()->save($shop);
+                    $shop->save();
         
-            return redirect('/');
-        }
+                    return  redirect('/');
+                }
+                
+                 //店舗管理者店舗情報
+                 public function shopHome(Shop $shop){
+                    //ログインしているユーザーのみ　https://biz.addisteria.com/how_to_get_data/
+                    $auth=auth()->user()->id;
+                    $shop=Shop::where('user_id', $auth)->get();
+                    //return view('auth.home', compact('shops'));
+                    // $shop=Shop::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
+                    return view ('auth.home',[
+                        'shops'=>$shop,
+                    ]);
+                }
+                //店舗編集
+                public function editShopForm(Shop $shop){
+                    
+                    return view ('auth.edit_shop',[
+                        'shop'=>$shop,
+                    ]);
+                }
+        
+                public function editShop(Shop $shop, Request $request){
+                    $record=$shop;
+        
+                    $shop->name=$request->name;
+                    $shop->adress=$request->adress;
+                    $shop->comment=$request->comment;
+                    $shop->image=$request->image;
+                    $shop->user_id=Auth::id();
+                
+                    Auth::user()->shop()->save($record);
+                    
+                    return redirect('/');
+        
+                }
+        
+                //店舗削除
+                public function ShopDelete(Shop $shop){
+                    $shop->delete();
+                
+                    return redirect('/');
+                }
+        
         
 
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,10 @@ use App\Http\Controllers\UsersController;
 
 Auth::routes();
 
+
+
 Route::group(['middleware' => 'auth'],function(){
+    
     //プロフィール編集
     Route::get('/profile',[RegistrationController::class,'profile'])->name('profile');
     Route::post('/profile',[RegistrationController::class,'profileEdit'])->name('profile.edit');
@@ -81,15 +85,15 @@ Route::get('/shop/{shop}',[RegistrationController::class,'shopDetail'])->name('s
       
        
         });
-        Route::group(['prefix' => 'admin'], function () {
+       
              //店舗管理者
-        Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
-        Route::post('/register/shop',[RegistrationController::class,'shopRegisters']);
+        Route::get('/register/shop',[RegisterController::class,'shopRegister'])->name('shop.register');
+        Route::post('/register/shop',[RegisterController::class,'shopRegisters']);
         //店舗新規登録
         Route::get('/new/shop',[RegistrationController::class,'shopRegistration'])->name('shop.registration');
         Route::get('/new/shop',[RegistrationController::class,'shopNew'])->name('shop.new');
         Route::post('/new/shop',[RegistrationController::class,'shopNews']);
-        });
+     
         
 
  
@@ -124,15 +128,6 @@ Route::group(['middleware' => ['admin.auth']], function () {
         Route::get('/admin/post_list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
 
     });
-
-
-
-
-
-
-
-
-
 
 
 Route::prefix('reset')->group(function () {

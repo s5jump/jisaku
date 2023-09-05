@@ -23,39 +23,32 @@ class DisplayController extends Controller
 {
     public function index(Request $request){
        // $user_id = Auth::id();
-
-
         //検索 
         $keyword = $request->input('keyword');
         $review=$request->input('review');
 
-        //$posts=Post::query()->latest();
         $posts=Post::query();
         //DD($posts);
         //join https://qiita.com/kamome_susume/items/b37709e1ba29abacdbd9
-        $posts=Post::join('shops','posts.shop_id','=','shops.id');
+        //$posts=Post::join('shops','posts.shop_id','=','shops.id');
             
 
         //$keyword　が空ではない場合、検索処理を実行します
         if (!empty($keyword)) {
-            $posts->where(function ($posts) use ($keyword) {
-                $posts->where('posts.title', 'like' , "%{$keyword}%")
-                    ->orWhere('posts.comment', 'like', "%{$keyword}%")
-                    ->orWhere('shops.adress', 'like', "%{$keyword}%");
-            });
+            $posts=$posts->whereHas('shop',function ($q) use ($keyword) {
+                $q->where('adress', 'like', "%{$keyword}%");
+            })->orWhere('title', 'like' , "%{$keyword}%")
+                ->orWhere('comment', 'like', "%{$keyword}%");
+                 
+            
         }  
        
         if (isset($review)) {
-            $posts->where('review', $review);
+            $posts=$posts->where('review', $review);
         }
-       //DD($posts);
-       //$posts=Post::where('created_at', 'desc')->latest()->get();
-       $posts=Post::orderBy('created_at', 'desc')->get()->toArray();
-       // $pusts=Post::latest('created_at')->get()->toArray();
-        //$posts=Post::get()->toArray();
-       //$posts=$posts->orderBy('created_at', 'desc')->get()->toArray();
-       //$posts=Post::latest('created_at')->get()->toArray();
-        
+       
+       $posts=$posts->orderBy('created_at', 'desc')->get()->toArray();
+       
         return view('home',[
             'posts'=>$posts,
             'keyword'=>$keyword,

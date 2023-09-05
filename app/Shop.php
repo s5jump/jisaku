@@ -8,7 +8,7 @@ class Shop extends Model
 {
 
     public function post(){
-        return $this->hasMany('App\Shop','shop_id','id');
+        return $this->hasMany('App\Post');
     }
 
     public function bookmark(){

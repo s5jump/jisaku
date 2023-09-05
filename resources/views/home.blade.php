@@ -70,7 +70,7 @@
 
             <div class="row justify-content-around">
             <a href="{{ route('shop.information') }}">
-                <button type='button' class='btn btn-warning'>店舗情報</button>
+                <button type='button' class='btn btn-warning'>店舗一覧</button>
             </a>
 
             @if(Auth::check())
