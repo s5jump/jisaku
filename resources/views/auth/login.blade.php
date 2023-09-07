@@ -38,7 +38,7 @@
         </nav>
         <br>
         <div class="text-center">
-          <a href="{{ route('password') }}">※パスワード忘れた方はこちらから</a>
+          <a href="{{ route('password.request') }}">※パスワード忘れた方はこちらから</a>
         </div>
         <div class="text-right">
                 <button type="submit" class="btn btn-primary">ログイン</button>

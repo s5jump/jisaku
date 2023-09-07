@@ -24,7 +24,7 @@ class ResetInputMailRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email:rfc,dns,filter',  'exists:user,mail']
+            'email' => ['required', 'email:rfc,dns,filter',  'exists:users,email']
         ];
     }
 

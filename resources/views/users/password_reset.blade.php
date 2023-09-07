@@ -17,7 +17,7 @@
             @endif
     <form method="POST" action="{{ route('password.reset.update') }}">
         @csrf
-        <input type="hidden" name="reset_token" value="{{ $userToken->password_access_key }}">
+        <input type="hidden" name="reset_token" value="{{ $userToken->reset_password_access_key }}">
         <div>
             <label>新パスワード</label>
             <input type="password" name="password" value="">

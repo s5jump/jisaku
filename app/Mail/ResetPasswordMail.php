@@ -40,17 +40,17 @@ class ResetPasswordMail extends Mailable
     public function build()
     {
          // トークン取得 
-         $tokenParam = ['reset_token' => $this->userToken->rest_password_access_key];
+         $tokenParam = ['reset_token' => $this->userToken->reset_password_access_key];
          $now = Carbon::now();
  
          // 署名付き有効期限24時間のURLを生成
-         $url = URL::temporarySignedRoute('password.reset' , $now->addHours(24), $tokenParam);
+         $url = \URL::temporarySignedRoute('password.reset' , $now->addHours(24), $tokenParam);
  
          // HTML形式でメール作成
          return $this->view('users.password_reset_mail')
                      ->subject('パスワード再設定用URLのご案内')
                      ->from(config('mail.from.address'), config('mail.from.name'))
-                     ->to($this->user->mail)
+                     ->to($this->user->email)
                      ->with([
                          'user' => $this->user,
                          'url' => $url,

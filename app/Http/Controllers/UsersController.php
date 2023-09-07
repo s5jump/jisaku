@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Services\UsersService;
 
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Http\Requests\ResetInputMailRequest;
+
 use App\Mail\ResetPasswordMail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -36,16 +38,21 @@ class UsersController extends Controller
     //メール送信処理
     public function passwordEmail(ResetInputMailRequest $request)
     {
+       
+       
+
+            
         try {
             // ユーザー情報取得
             $user = UsersService::findFromMail($request->email);
             $userToken = UsersService::updateOrCreateUser($user->id);
-
+            
             // メール送信
             Log::info(__METHOD__ . '...ID:' . $user->id . 'のユーザーにパスワード再設定用メールを送信します。');
             Mail::send(new ResetPasswordMail($user, $userToken));
             Log::info(__METHOD__ . '...ID:' . $user->id . 'のユーザーにパスワード再設定用メールを送信しました。');
         } catch(Exception $e) {
+            logger()->info($e->getMessage());
             Log::error(__METHOD__ . '...ユーザーへのパスワード再設定用メール送信に失敗しました。 request_email = ' . $request->mail . ' error_message = ' . $e);
             return redirect()->route('reset.form')
                 ->with('flash_message', '処理に失敗しました。時間をおいて再度お試しください。');
@@ -86,11 +93,11 @@ class UsersController extends Controller
             return redirect()->route('password')
                 ->with('flash_message', __('パスワード再設定メールに添付されたURLから遷移してください。'));
         }
-        return view('users.password_reset');
+        return view('users.password_reset')->with(compact('userToken'));
     }
 
     // パスワード更新
-    public function passwordResetUpdate(ResetInputMailRequest $request)
+    public function passwordResetUpdate(ResetPasswordRequest $request)
     {
         try {
             // ユーザー情報取得

@@ -36,7 +36,7 @@
                 <label for="image">アイコン写真</label>
                 <input type="file" class="form-control" id="image" name="image" />
               </div>
-              </form>
+              
               <div class="text-center">
           <a href="{{ route('admin.register') }}" >※管理者の方はこちらから</a>
         </div>
