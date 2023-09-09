@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'],function(){
 
     //自分の投稿一覧
     Route::get('/my_post',[DisplayController::class,'myPost'])->name('my.post');
+    //自分の投稿詳細
+    Route::get('/mypost/{post}/detail',[RegistrationController::class,'myPostDetails'])->name('my.post.details');
 
      //投稿編集
      Route::get('/edit/post/{post}',[RegistrationController::class,'editPostForm'])->name('edit.post');
@@ -50,8 +52,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/breach',[RegistrationController::class,'breach']);
 
     //ブックマークお気に入り
-    Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
-    Route::get('/bookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
+    //Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
+    Route::post('/bookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
 
         
 
@@ -117,15 +119,14 @@ Route::group(['middleware' => ['admin.auth']], function () {
         //ログイン
         Route::get('/login', 'admin\AdminLoginController@showForm');
         Route::post('/login', 'admin\AdminLoginController@login');
-
-
         //ユーザーリスト
         Route::get('/admin/user_list',[RegistrationController::class,'adminUserList'])->name('admin.user.list');
         //ユーザーリスト詳細
         Route::get('/admin/user_list/detail',[RegistrationController::class,'adminUserListDetail'])->name('admin.user.list.detail');
-
         //投稿リスト
         Route::get('/admin/post_list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
+        // //投稿リスト詳細
+        // Route::get('/admin/post_list/detail',[RegistrationController::class,'adminPostListDetail'])->name('admin.post.list.detail');
 
     });
 

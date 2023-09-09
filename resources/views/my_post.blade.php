@@ -35,7 +35,7 @@
 
                                 
                             <th scope='col'>
-                            <a href="{{ route('post.detail',['post'=>$post['id']]) }}">詳細</a></th>
+                            <a href="{{ route('my.post.details',['post'=>$post['id']]) }}">詳細</a></th>
                            
                             </tr>
                             @endforeach

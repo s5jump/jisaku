@@ -45,22 +45,6 @@ class RegistrationController extends Controller
         $user->save();
         return redirect('/');
     }
-    //新規登録内容確認 https://www.kamome-susume.com/laravel-img-upload/
-    // public function registerCheck(Request $request){
-    //     $image = $request->file('image');//リクエストした画像を取得
-
-    //     if(isset($image)){//画像がセットされていれば保存実行
-    //         $path = $image->store('public');//publicに保存
-
-    //         if($path){//処理実行できたらDBに保存処理実行
-    //             User::create([//DBに登録
-    //                 'image'=>$path,
-    //             ]);
-    //         }
-    //     }
-
-    //     // return view('auth.register_check');
-    // }
 
    
 
@@ -101,6 +85,17 @@ class RegistrationController extends Controller
         ]);
        
     }
+    //自分の投稿詳細
+    
+    public function myPostDetails(Post $post){
+       
+        //  $posts=Post::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
+       
+
+        return view('my_post_detail',[
+            'posts'=>$post,
+        ]);
+    }
 
     
     //管理者登録
@@ -135,37 +130,32 @@ class RegistrationController extends Controller
             return view('admin.user_list_detail');
         }
         //投稿リスト
-        function adminPostList(Comment $comment){
+        function adminPostList(Post $post){
+            //https://awesome-programmer.hateblo.jp/entry/2019/07/03/162835
+            $comment = \DB::table('comments')
+                ->join('posts', 'comments.post_id', '=', 'posts.id')
+                ->select(\DB::raw('count(*) as post_count, posts.id'))
+                ->groupBy('comments.id')
+                ->orderBy('post_count', 'desc')
+                ->limit(20)
+                ->get();
 
-            // $post=Post::join('comments','posts.post_id','=','posts.id');
-
+                //dd($comment);
             //$comment = Comment::orderBy('post_id', 'DESC')->take(20)->get();
             return view('admin.post_list',[
                 'comment'=>$comment,
+               
             ]);
         }
+        //投稿リスト確認詳細
+        // function adminPostListDetail(Post $post){
+           
+        //     return view('admin.post_list_detail',[
+        //         'post'=>$posts,
+        //     ]);
+        // }
     
 
-   
-
-      
-            //    //店舗管理者
-           
-            //    public function shopRegister(){
-            //     return view ('auth.shop_register');
-            // }
-            // function shopRegisters(Request $request){
-            //     $user=new User;
-            //     $user->name=$request->name;
-            //     $user->email=$request->email;
-            //     $user->image=$request->image;
-            //     $user->role=2;
-            //     $user->password=Hash::make($request['password']);
-        
-            //     $user->save();
-            //     return view ('auth.shop_registration');
-               
-            // }
                
                  //店舗新規登録
                 
@@ -192,13 +182,11 @@ class RegistrationController extends Controller
                 
                  //店舗管理者店舗情報
                  public function shopHome(Shop $shop){
-                    //ログインしているユーザーのみ　https://biz.addisteria.com/how_to_get_data/
-                    $auth=auth()->user()->id;
-                    $shop=Shop::where('user_id', $auth)->get();
-                    //return view('auth.home', compact('shops'));
-                    // $shop=Shop::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
+                   
+                    $shops=Shop::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
+                  
                     return view ('auth.home',[
-                        'shops'=>$shop,
+                        'shops'=>$shops,
                     ]);
                 }
                 //店舗編集
@@ -231,16 +219,6 @@ class RegistrationController extends Controller
                     return redirect('/');
                 }
         
-        
-
-
-    
-    
-
-   
-
-
-
 
 
     //新規投稿
@@ -323,15 +301,15 @@ class RegistrationController extends Controller
    public function bookmark(Request $request)
 {
     $user_id = Auth::user()->id; //1.ログインユーザーのid取得
-    $post_id =Auth::id();//2.投稿idの取得
-    $shop_id =Auth::id(); 
+    $post_id = $request->post_id;//2.投稿idの取得
+    $shop_id = $request->shop_id; 
     $already_liked = Bookmark::where('user_id', $user_id)->where('post_id', $post_id)->where('shop_id', $shop_id)->first(); //3.
 
     if (!$already_liked) { //もしこのユーザーがこの投稿にまだいいねしてなかったら
         $bookmark = new Bookmark; //4.Bookmarkクラスのインスタンスを作成
-        $bookmark->post_id = Auth::id(); //Bookmarkインスタンスにpost_id,user_id,shop_idをセット
+        $bookmark->post_id = $post_id; //Bookmarkインスタンスにpost_id,user_id,shop_idをセット
         $bookmark->user_id = Auth::user()->id;
-        $bookmark->shop_id = Auth::id();
+        $bookmark->shop_id = $shop_id;
         $bookmark->save();
     } else { //もしこのユーザーがこの投稿に既にいいねしてたらdelete
         Bookmark::where('post_id', $post_id)->where('user_id', $user_id)->where('shop_id', $shop_id)->delete();
@@ -345,11 +323,11 @@ class RegistrationController extends Controller
     // return response()->json($param); 
     
 
-    // return view('shop',[
-    // //    'bookmark'=>$bookmark,
-    //       'request'=>$request,
+    return view('shop',[
+       'bookmark'=>$bookmark,
+        'request'=>$request,
     
-    // ]);
+    ]);
 }
    
 

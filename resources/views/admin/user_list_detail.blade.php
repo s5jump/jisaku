@@ -23,7 +23,7 @@
                             
                             <div class="text-center">
                             <a href="">
-                                    <button type="submit" class="btn btn-primary">利用停止にする</button></a>
+                                    <button type="submit" >利用停止にする</button></a>
                         
                 
                         </div>

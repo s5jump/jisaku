@@ -52,15 +52,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+       
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => 'required|Integer|max:2',
         ]);
     }
 
 
-    
+    //https://qol-kk.com/wp2/blog/2019/01/19/post-1050/#google_vignette
+    //ユーザー登録時にroleも一緒にcreate
     /**
      * Create a new user instance after a valid registration.
      *
@@ -69,56 +72,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // if($input->role === '2'){
-        //     return User::create([
-        //         'name' => $data['name'],
-        //         'email' => $data['email'],
-        //         'password' => Hash::make($data['password']),
-        //         'role'=>2,
-        //     ]);
-        // }else{
-            return User::create([
+        return User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
-            ]);
-        // }
+                'role' => $data['role'],
+        ]);
 
-
-
-        // User::create([
-        //         'name' => $data['name'],
-        //         'email' => $data['email'],
-        //         'password' => Hash::make($data['password']),
-        //     ]);
-        // return $input->role === '2';
-       
+           
     }
 
      //店舗管理者
-           
-     public function shopRegister(){
-        return view ('auth.register');
-    }
-    function shopRegisters(Request $request){
-        // $user=new User;
-        // $user->name=$request->name;
-        // $user->email=$request->email;
-        // $user->image=$request->image;
-        // $user->role=2;
-        // $user->password=Hash::make($request['password']);
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'role'=>2,
-        ]);
+     //return view ('auth.shop_registration');
+     
 
-        //$request->save();
         
-        return view ('auth.shop_registration');
+        
        
-    }
+   
 
     
 

@@ -14,7 +14,7 @@
                                 <table class='table'>
                                 <thead>
                                         <tr>
-                                            <th scope='col'>ユーザー名</th>
+                                            <th scope='col'>投稿ID</th>
                                            
                                             <th scope='col'>違反報告件数</th>
                                            
@@ -24,17 +24,21 @@
                                     <tbody>
                             
                             <tr>
-                
-                            <th scope='col'></th>
+                            @foreach($comment as $comments)
+                           
+                            <th scope='col'　class='text-center'>
+                            {{ $comments->id }}</a></th>
                           
                            
-                            <th scope='col'></th>
+                            <th scope='col' class='text-center'>{{ $comments->post_count }}</th>
+                            @endforeach
                             <th scope='col'>
-                                
+                           
                                 <a href="">
-                                    非表示にする</button></a></th>
+                                <button type="submit" >非表示にする</button>
+                                    </a></th>
                             </tr>
-                          
+                           
                             </tbody>
                             </table>
                             </div>

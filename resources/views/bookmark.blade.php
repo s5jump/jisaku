@@ -9,7 +9,7 @@
 
                     
                         <div class="card-header">
-                            <div class='text-center'>店舗一覧</div>
+                            <div class='text-center'>ブックマーク一覧</div>
                         </div>
                         <div class="card-body">
                             <div class="card-body">

@@ -21,12 +21,11 @@
                             
                             </div>
                             <div class="text-right">
-                            @if(Auth::check())
-                           
-                            <a href="{{ route('breach') }}">
-                                    <button type="submit" class="btn btn-primary">違反報告する</button></a>
-                            @endif
-                              
+                            
+                            
+                                <a href="{{ route('edit.post',['post'=>$posts['id']]) }}">
+                                    <button type="submit" class="btn btn-primary">編集</button></a>
+                            
                 
                         </div>
                         

@@ -99,7 +99,7 @@
                                         <tr>
                                             <th scope='col'>タイトル</th>
                                             @if(Auth::check())
-                                            <th scope='col'>ユーザー名</th>
+                                            <th scope='col'>ユーザーID</th>
                                             @endif
                                             <th scope='col'>レビュー点</th>
                                             <th scope='col'></th>
@@ -113,7 +113,7 @@
                               
                                 @if(Auth::user())
                             <th scope='col'>
-                                {{ optional(Auth::user())->name }}
+                                {{ $post['user_id'] }}
                             </th>
                             @endif
                            

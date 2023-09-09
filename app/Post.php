@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fullable=['title','review','comment','image'];
+    protected $fullable=['title','review','comment','image','shop_id'];
 
     public function shop(){
         return $this->belongsTo('App\Shop');

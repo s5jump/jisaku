@@ -23,11 +23,11 @@
                             <label for='adress'>店舗紹介・メニュー紹介：{{ $shop['comment'] }}</label>
                             <br>
                             <label for='image' class='mt-2'>店舗写真：{{ $shop['image'] }}</label>
-                    @endforeach 
+                    
                             <br>
                             <label for='' class='mt-2'>ユーザーレビュー一覧</label>
                             </div>
-                           
+                             
                             <div class='text-right'>
                                 <a href="{{ route('edit.shop',['shop'=>$shop['id']]) }}">
                                     <button type="submit" class="btn btn-primary">編集</button></a>
@@ -36,8 +36,8 @@
                                 <button type="submit" class="btn btn-primary">削除</button></a>
                                 </div>
                                 </div>
-                
-                              
+                                
+                                @endforeach
                             
                             
                         </div>
