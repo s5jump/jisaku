@@ -298,37 +298,47 @@ class RegistrationController extends Controller
    }
 
    //ブックマーク
-   public function bookmark(Request $request)
-{
-    $user_id = Auth::user()->id; //1.ログインユーザーのid取得
-    $post_id = $request->post_id;//2.投稿idの取得
-    $shop_id = $request->shop_id; 
-    $already_liked = Bookmark::where('user_id', $user_id)->where('post_id', $post_id)->where('shop_id', $shop_id)->first(); //3.
+   public function bookmark(Request $request){
+ 
+    $id = Auth::user()->id;
+    $post_id = $request->post_id;
+    $shop_id = $request->shop_id;
+    $bookmark = new Bookmark;
+    $shop = Shop::findOrFail($shop_id);
 
-    if (!$already_liked) { //もしこのユーザーがこの投稿にまだいいねしてなかったら
-        $bookmark = new Bookmark; //4.Bookmarkクラスのインスタンスを作成
-        $bookmark->post_id = $post_id; //Bookmarkインスタンスにpost_id,user_id,shop_idをセット
+    // 空でない（既にいいねしている）なら
+    if ($bookmark->like_exist($id, $post_id,$shop_id)) {
+        //likesテーブルのレコードを削除
+        $bookmark = Bookmark::where('post_id', $post_id)->where('shop_id', $shop_id)->where('user_id', $id)->delete();
+    } else {
+        //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
+        $bookmark = new Bookmark;
+        $bookmark->post_id = $request->post_id;
+        $bookmark->shop_id = $request->shop_id;
         $bookmark->user_id = Auth::user()->id;
-        $bookmark->shop_id = $shop_id;
         $bookmark->save();
-    } else { //もしこのユーザーがこの投稿に既にいいねしてたらdelete
-        Bookmark::where('post_id', $post_id)->where('user_id', $user_id)->where('shop_id', $shop_id)->delete();
     }
-    //5.この投稿の最新の総いいね数を取得
-    // $review_likes_count = Review::withCount('likes')->findOrFail($review_id)->likes_count;
-    // $param = [
-    //     'review_likes_count' => $review_likes_count,
-    // ];
-    // //6.JSONデータをjQueryに返す
-    // return response()->json($param); 
+
+    //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
+    $shopBookmarksCount = $shop->loadCount('bookmarks')->bookmarks_count;
+
+    //一つの変数にajaxに渡す値をまとめる
+    //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
+    $json = [
+        'shopBookmarksCount' => $shopBookmarksCount,
+    ];
+    //下記の記述でajaxに引数の値を返す
+    return response()->json($json);
+    }
+
+    //ブックマーク一覧
+    public function bookmarkForm(Bookmark $bookmark){
+        return view('bookmark',[
+
+        ]);
+       }
     
 
-    return view('shop',[
-       'bookmark'=>$bookmark,
-        'request'=>$request,
-    
-    ]);
-}
    
 
 

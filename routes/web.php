@@ -52,8 +52,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/breach',[RegistrationController::class,'breach']);
 
     //ブックマークお気に入り
-    //Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
     Route::post('/bookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
+    //ブックマーク一覧
+    Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
 
         
 

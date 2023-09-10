@@ -75,8 +75,8 @@
 
             @if(Auth::check())
             
-            <a href="">
-                <button type='button' class='btn btn-success'>ブックマーク</button>
+            <a href="{{ route('bookmark.form') }}">
+                <button type='button' class='btn btn-success'>ブックマーク一覧</button>
             </a>
 
             

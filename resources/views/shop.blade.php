@@ -13,21 +13,26 @@
                        
 
                         <div>
-                        @if (Auth::check())
-                            @if ($shop)
-                            <div class='text-center'>
-                            <a href="{{ route('bookmark') }}" class="btn btn-success btn-sm">ブックマーク<span class="bookmark"></span></a>
-                        @else
-                            <a href="{{ route('bookmark.form') }}" class="btn btn-secondary btn-sm">ブックマーク解除<span class="bookmark"></span></a>
-                        @endif
-                        @endif
-                        </div>
-                        </div>
-                      
                         
-                      
 
-                        
+                        @if(Auth::check())
+                        <div class='text-center'>
+                            <p class="favorite-marke">
+                            <a class="js-bookmark-toggle loved" href="" data-postid="{{ $shop->id }}"><i class="fas fa-heart"></i></a>
+                            <span class="bookmarksCount">{{$shop->bookmarks_count}}
+                            <button type="submit" class="btn btn-success">ブックマークする</button>
+                            </span>
+                            </p>
+                            @else
+                            <p class="favorite-marke">
+                            <a class="js-bookmark-toggle" href="" data-postid="{{ $shop->id }}"><i class="fas fa-heart"></i></a>
+                            <span class="bookmarksCount">{{$shop->bookmarks_count}}
+                            <button type="submit" class="btn btn-success">ブックマーク解除</button>
+                            </span>
+                            </p>
+                            @endif​
+                        </div>
+                    
                             <div class="card-body">
                             
                             <label for='name'>店舗名：{{ $shop->name }}</label>
@@ -43,6 +48,7 @@
                             <br>
                             <label for='image' class='mt-2'>ユーザーレビュー一覧</label>
                             </div>
+                            
                          
                             
                             
