@@ -22,7 +22,7 @@ use App\Comment;
 
 use App\Bookmark;
 
-
+use Illuminate\Validation\Rule;
 
 class RegistrationController extends Controller
 {
@@ -66,15 +66,12 @@ class RegistrationController extends Controller
     }
    
     //プロフィール削除
-    public function profileDelete(Request $request){
-        $user = Auth::user();
-        //$user = User::find($request->input('id'));
-        $user->delete();
-        
-        // $user->save();
+    //https://qiita.com/crosawassant/items/a6e3e9b1aedf566b2d27
+    public function profileDeletes(User $user){
+      
+        $user =User::find(Auth::id())->delete();
+       
         return redirect('/',[
-            
-            
         ]);
     }
 

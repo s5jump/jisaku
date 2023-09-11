@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Auth;
 class DisplayController extends Controller
 {
     public function index(Request $request){
+       // $role = Auth::user()->role;
+
        // $user_id = Auth::id();
         //検索 
         $keyword = $request->input('keyword');
@@ -53,8 +55,10 @@ class DisplayController extends Controller
             'posts'=>$posts,
             'keyword'=>$keyword,
             'review'=>$review,
+            //'role'=>$role,
         ]);
     }
+    
 
     //投稿詳細
     public function postDetail(Post $post){

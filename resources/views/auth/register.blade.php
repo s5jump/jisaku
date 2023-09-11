@@ -16,6 +16,7 @@
             @endif
             <form action="{{ route('register') }}" method="POST">
               @csrf
+              
               <div class="form-group">
                 <label for="name">ユーザー名</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" />
@@ -42,7 +43,7 @@
           <a href="{{ route('admin.register') }}" >※管理者の方はこちらから</a>
         </div>
         <br>
-        <form action="{{ route('register') }}" method="POST">
+        <form action="{{ route('shop.register') }}" method="POST">
               @csrf
         <div class="text-center">
           <input type="hidden" name="role" value="2" />
