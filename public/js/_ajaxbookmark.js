@@ -1,8 +1,10 @@
+
 $(function () {
   var bookmark = $('.js-bookmark-toggle');
   var bookmarkShopId;
   
   bookmark.on('click', function () {
+    console.log('click');
       var $this = $(this);
       bookmarkShopId = $this.data('shopid');
       $.ajax({
@@ -37,3 +39,4 @@ $(function () {
       return false;
   });
   });
+  

@@ -9,9 +9,7 @@
 
     <title>{{ config('app.name', '飲食店情報') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -53,5 +51,8 @@
         </nav>
         @yield('content')
     </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/_ajaxbookmark.js') }}" defer></script>
 </body>
 </html>

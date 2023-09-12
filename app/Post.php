@@ -4,8 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+ use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Post extends Model
 {
+
+    //use Notifiable;
+    use SoftDeletes;
+
     protected $fullable=['title','review','comment','image','shop_id'];
 
     public function shop(){

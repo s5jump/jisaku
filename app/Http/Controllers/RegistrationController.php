@@ -144,6 +144,14 @@ class RegistrationController extends Controller
                
             ]);
         }
+        //投稿非表示にする
+        public function adminPostListDeletes(Post $post){
+      
+            $post =Post::find(Auth::id())->delete();
+           
+            return redirect('admin.post_list',[
+            ]);
+        }
         //投稿リスト確認詳細
         // function adminPostListDetail(Post $post){
            

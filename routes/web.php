@@ -125,6 +125,8 @@ Route::group(['middleware' => ['admin.auth']], function () {
         Route::get('/admin/user_list/detail',[RegistrationController::class,'adminUserListDetail'])->name('admin.user.list.detail');
         //投稿リスト
         Route::get('/admin/post_list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
+        //投稿非表示にする
+        Route::post('/admin/post_list',[RegistrationController::class,'adminPostListDeletes'])->name('admin.post.list.delete');
         // //投稿リスト詳細
         // Route::get('/admin/post_list/detail',[RegistrationController::class,'adminPostListDetail'])->name('admin.post.list.detail');
 

@@ -34,9 +34,10 @@
                             @endforeach
                             <th scope='col'>
                            
-                                <a href="">
+                            <form action="{{ route('admin.post.list.delete') }}" method="POST">
+                            @csrf
                                 <button type="submit" >非表示にする</button>
-                                    </a></th>
+                            </form></th>
                             </tr>
                            
                             </tbody>
