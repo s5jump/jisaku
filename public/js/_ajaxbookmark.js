@@ -1,10 +1,11 @@
 
-$(function () {
-  var bookmark = $('.js-bookmark-toggle');
+window.addEventListener('DOMContentLoaded',function () {
+  var bookmark =  document.getElementsByTagName('.js-bookmark-toggle')[0];
   var bookmarkShopId;
   
-  bookmark.on('click', function () {
-    console.log('click');
+  if(typeof t === 'underined'){
+  bookmark.on('click', function() {
+    console.log(typeof 'click');
       var $this = $(this);
       bookmarkShopId = $this.data('shopid');
       $.ajax({
@@ -31,12 +32,12 @@ $(function () {
           .fail(function (data, xhr, err) {
   //ここの処理はエラーが出た時にエラー内容をわかるようにしておく。
   //とりあえず下記のように記述しておけばエラー内容が詳しくわかります。笑
-              console.log('エラー');
-              console.log(err);
-              console.log(xhr);
+              console.log(typeof 'エラー');
+              console.log(typeof err);
+              console.log(typeof xhr);
           });
       
       return false;
   });
-  });
+  }});
   

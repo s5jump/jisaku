@@ -18,7 +18,7 @@
                         @if(Auth::check())
                         <div class='text-center'>
                             <p class="favorite-marke">
-                            <a class="js-bookmark-toggle loved" href="" data-postid="{{ $shop->id }}"><i class="fas fa-heart"></i></a>
+                            <a class="js-bookmark-toggle " href="" data-postid="{{ $shop->id }}"><i class="fas fa-heart"></i></a>
                             <span class="bookmarksCount">{{$shop->bookmarks_count}}
                             <button type="submit" class="btn btn-success">ブックマークする</button>
                             </span>
