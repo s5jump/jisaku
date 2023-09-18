@@ -26,20 +26,25 @@
                             <tr>
                             @foreach($comment as $comments)
                            
-                            <th scope='col'　class='text-center'>
+                            <th scope='col' class='text-center'>
                             {{ $comments->id }}</a></th>
                           
                            
                             <th scope='col' class='text-center'>{{ $comments->post_count }}</th>
+                           
+
                             @endforeach
                             <th scope='col'>
                            
                             <form action="{{ route('admin.post.list.delete') }}" method="POST">
                             @csrf
-                                <button type="submit" >非表示にする</button>
+                            
+                                <button type="submit" >非表示</button>
+                                
                             </form></th>
+                            
                             </tr>
-                           
+                            
                             </tbody>
                             </table>
                             </div>

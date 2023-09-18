@@ -38,24 +38,26 @@
                 <input type="file" class="form-control" id="image" name="image" />
               </div>
               
-              <div class="text-center">
-                
-          <a href="{{ route('admin.register') }}" >※管理者の方はこちらから</a>
-        </div>
-        <br>
-        <form action="{{ route('shop.register') }}" method="POST">
-              @csrf
-        <div class="text-center">
-          <input type="hidden" name="role" value="2" />
-          <button type="submit" >※店舗管理者の方はこちらから</button>
-         
-        </div> 
+       
       
              
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">登録</button>
               </div>
             </form>
+
+            <div class="text-center">
+                
+                <a href="{{ route('admin.register') }}" >※管理者の方はこちらから</a>
+              </div>
+              <br>
+              <form action="{{ route('register') }}" method="GET">
+                    @csrf
+              <div class="text-center">
+                <input type="hidden" name="role" value="2" />
+                <button type="submit" >※店舗管理者の方はこちらから</button>
+                </form>
+              </div> 
           </div>
         </nav>
       </div>

@@ -21,5 +21,10 @@ class Bookmark extends Model
         return $this->belongsTo(Shop::class);
     }
 
+    public function bookmark_exist($user_id,$shop_id){
+        return Bookmark::where('user_id',$user_id)
+                ->where('shop_id',$shop_id)
+                ->exists();
+    }
   
 }

@@ -15,22 +15,25 @@
                         <div>
                         
 
-                        @if(Auth::check())
+                        @if($bookmark_model->bookmark_exist(Auth::user()->id,$shop->id))
                         <div class='text-center'>
                             <p class="favorite-marke">
-                            <a class="js-bookmark-toggle " href="" data-postid="{{ $shop->id }}"><i class="fas fa-heart"></i></a>
+                            <a class="js-bookmark-toggle " href="" data-shopid="{{ $shop->id }}">
+                            <button type="submit" class="btn btn-success">ブックマーク解除</button>
+                            </a>
                             <span class="bookmarksCount">{{$shop->bookmarks_count}}
-                            <button type="submit" class="btn btn-success">ブックマークする</button>
+                            
                             </span>
                             </p>
                             @else
                             <p class="favorite-marke">
-                            <a class="js-bookmark-toggle" href="" data-postid="{{ $shop->id }}"><i class="fas fa-heart"></i></a>
+                            <a class="js-bookmark-toggle" href="" data-shopid="{{ $shop->id }}">
+                            <button type="submit" class="btn btn-success">ブックマークする</button>
+                            </a>
                             <span class="bookmarksCount">{{$shop->bookmarks_count}}
-                            <button type="submit" class="btn btn-success">ブックマーク解除</button>
                             </span>
                             </p>
-                            @endif​
+                            @endif
                         </div>
                     
                             <div class="card-body">
@@ -45,8 +48,38 @@
                             <br>
                             <label for='image' class='mt-2'>店舗写真：{{ $shop->image }}</label>
                             
+                            
                             <br>
-                            <label for='image' class='mt-2'>ユーザーレビュー一覧</label>
+                            <table class='table'>
+                                <thead>
+                                <label for='image' class='mt-2'>ユーザーレビュー一覧
+                                        <tr>
+                                            <th scope='col'>ユーザーID</th>
+                                           
+                                            <th scope='col'>タイトル</th>
+                                           
+                                            <th scope='col'></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            
+                            <tr>
+                            
+                           
+                            <th scope='col'>{{ $post->user_id }}
+                            </th>
+                          
+                           
+                            <th scope='col'>{{ $post->title }}
+
+                            </th>
+                           
+
+                            
+                            <th scope='col'></th>
+                               
+                            
+                            </label>
                             </div>
                             
                          
@@ -61,3 +94,51 @@
             </div>
         </main>
         @endsection
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+$(function () {
+  var bookmark =  $('.js-bookmark-toggle');
+  var bookmarkShopId;
+  
+  bookmark.on('click', function() {
+    
+      var $this = $(this);
+      bookmarkShopId = $this.data('shopid');
+      $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              url: '/ajaxbookmark',  //routeの記述
+              type: 'POST', //受け取り方法の記述（GETもある）
+              data: {
+                  'shop_id': bookmarkShopId //コントローラーに渡すパラメーター
+              },
+      })
+  
+          // Ajaxリクエストが成功した場合
+          .done(function (data) {
+  
+           
+            if(data.exist == null){
+                $this.children('.btn-success').html('ブックマークする');
+            }else{
+                $this.children('.btn-success').html('ブックマーク解除');
+            }
+  //.likesCountの次の要素のhtmlを「data.postLikesCount」の値に書き換える
+              $this.next('.bookmarksCount').html(data.shopBookmarksCount); 
+  
+          })
+          // Ajaxリクエストが失敗した場合
+          .fail(function (data, xhr, err) {
+  //ここの処理はエラーが出た時にエラー内容をわかるようにしておく。
+  //とりあえず下記のように記述しておけばエラー内容が詳しくわかります。笑
+              console.log('エラー');
+              console.log(err);
+              console.log(xhr);
+          });
+      
+      return false;
+  });
+  });
+  
+        </script>

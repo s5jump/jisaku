@@ -16,7 +16,6 @@ class CreateBookmarksTable extends Migration
         Schema::create('bookmarks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('shop_id');
  
             $table->timestamps();
@@ -25,9 +24,8 @@ class CreateBookmarksTable extends Migration
             //usersテーブルの外部キー設定
             //userテーブルのidカラムを参照するconstrainedメソッド
             //削除時のオプション
-            // $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            // $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
-            // $table->foreign('shop_id')->references('id')->on('shops')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
         
         });
     }

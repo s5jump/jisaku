@@ -48,11 +48,11 @@
                         <div class="text-right">
                             <a href="{{ route('edit.post',['post'=>$posts['id']]) }}">
                                 <button type='submit' class='btn btn-primary '>更新</button></a>
-
+                                </form>
                             <a href="{{ route('post.delete',['post'=>$posts['id']]) }}">
                                 <button type="submit" class="btn btn-primary">削除</button></a>
                                 </div>
-                                </form>
+                                
                     </div>
                     </div>
                 </div>

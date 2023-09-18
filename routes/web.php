@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/breach',[RegistrationController::class,'breach']);
 
     //ブックマークお気に入り
-    Route::post('/bookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
+    Route::post('/ajaxbookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
     //ブックマーク一覧
     Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
 
@@ -89,12 +89,14 @@ Route::get('/shop/{shop}',[RegistrationController::class,'shopDetail'])->name('s
         });
        
              //店舗管理者
-        Route::get('/register/shop',[RegisterController::class,'shopRegister'])->name('shop.register');
-        Route::post('/register/shop',[RegisterController::class,'shopRegisters']);
+        // Route::get('/register/shop',[RegisterController::class,'create'])->name('register');
+        // Route::post('/register/shop',[RegisterController::class,'create']);
         //店舗新規登録
         Route::get('/new/shop',[RegistrationController::class,'shopRegistration'])->name('shop.registration');
         Route::get('/new/shop',[RegistrationController::class,'shopNew'])->name('shop.new');
         Route::post('/new/shop',[RegistrationController::class,'shopNews']);
+
+
      
         
 

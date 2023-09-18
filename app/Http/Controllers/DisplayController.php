@@ -91,12 +91,13 @@ class DisplayController extends Controller
         //     ->selectRaw('shop_id, avg(review)') 
         //     ->get(); 
 
-                
+        
         
         
         return view('shop_information',[
             'shops'=>$shop,
             'posts'=>$posts,
+            
         ]);
        
     }

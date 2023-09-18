@@ -11,12 +11,8 @@ class Shop extends Model
         return $this->hasMany('App\Post');
     }
 
-    public function bookmark(){
-        return $this->belongsTo('App\Bookmark','id');
+    public function bookmarks(){
+        return $this->hasMany('App\Bookmark');
     }
 
-    //後でViewで使う、いいねされているかを判定するメソッド。
-    public function isLikedBy($user): bool {
-        return Bookmark::where('user_id', $user->id)->where('shop_id', $this->id)->where('post_id', $this->id)->first() !==null;
-    }
 }

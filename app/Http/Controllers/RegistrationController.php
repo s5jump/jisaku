@@ -77,8 +77,14 @@ class RegistrationController extends Controller
 
      //店舗詳細
      public function shopDetail(Shop $shop ){
+        $bookmark_model=new Bookmark;
+        $shop=Shop::where('id',$shop->id)->withCount('bookmarks')->first();
+
+        $post = Post::All();
         return view('shop',[
             'shop'=>$shop,
+            'bookmark_model'=>$bookmark_model,
+            'post'=>$post,
         ]);
        
     }
@@ -147,7 +153,7 @@ class RegistrationController extends Controller
         //投稿非表示にする
         public function adminPostListDeletes(Post $post){
       
-            $post =Post::find(Auth::id())->delete();
+           // $post =Post::find(Auth::id())->delete();
            
             return redirect('admin.post_list',[
             ]);
@@ -243,7 +249,8 @@ class RegistrationController extends Controller
         $post->review=$request->review_id;
         
         $post->user_id=Auth::id();
-        $post->shop_id=Auth::id();
+        $post->shop_id=1;
+        //$shop=Shop::where('id',$shop->id)
         //右はどの値を入れるか
         
         //Auth::user()->post()->save($post);
@@ -270,7 +277,7 @@ class RegistrationController extends Controller
         }
         $record->review=$request->review_id;
         $post->user_id=Auth::id();
-        $post->shop_id=Auth::id();
+        $post->shop_id=1;
        
         Auth::user()->post()->save($record);
         //$record->save();
@@ -303,33 +310,33 @@ class RegistrationController extends Controller
    }
 
    //ブックマーク
+   //https://shiro-changelife.com/laravel-ajax-like/
    public function bookmark(Request $request){
  
     $id = Auth::user()->id;
-    $post_id = $request->post_id;
     $shop_id = $request->shop_id;
     $bookmark = new Bookmark;
     $shop = Shop::findOrFail($shop_id);
 
     // 空でない（既にいいねしている）なら
-    if ($bookmark->like_exist($id, $post_id,$shop_id)) {
+    if ($bookmark->bookmark_exist($id,$shop_id)) {
         //likesテーブルのレコードを削除
-        $bookmark = Bookmark::where('post_id', $post_id)->where('shop_id', $shop_id)->where('user_id', $id)->delete();
+        $bookmark = Bookmark::where('shop_id', $shop_id)->where('user_id', $id)->delete();
     } else {
         //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
         $bookmark = new Bookmark;
-        $bookmark->post_id = $request->post_id;
         $bookmark->shop_id = $request->shop_id;
         $bookmark->user_id = Auth::user()->id;
         $bookmark->save();
     }
-
+    $exist = Bookmark::where('shop_id', $shop_id)->where('user_id', $id)->first();
     //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
     $shopBookmarksCount = $shop->loadCount('bookmarks')->bookmarks_count;
 
     //一つの変数にajaxに渡す値をまとめる
     //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
     $json = [
+        'exist' => $exist,
         'shopBookmarksCount' => $shopBookmarksCount,
     ];
     //下記の記述でajaxに引数の値を返す
@@ -338,9 +345,11 @@ class RegistrationController extends Controller
 
     //ブックマーク一覧
     public function bookmarkForm(Bookmark $bookmark){
-        return view('bookmark',[
-
-        ]);
+        $bookmark = Bookmark::orderBy('created_at','desc');
+        $data = [
+            'bookmark' => $bookmark,
+        ];
+        return view('bookmark',$data);
        }
     
 

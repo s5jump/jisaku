@@ -10,7 +10,7 @@ class Post extends Model
 {
 
     //use Notifiable;
-    use SoftDeletes;
+    
 
     protected $fullable=['title','review','comment','image','shop_id'];
 
@@ -26,10 +26,7 @@ class Post extends Model
     {
         return $this->hasMany('App\Bookmark');
     }
-    //後でViewで使う、いいねされているかを判定するメソッド。
-    public function isLikedBy($user): bool {
-        return Bookmark::where('user_id', $user->id)->where('shop_id', $this->id)->where('post_id', $this->id)->first() !==null;
-    }
+    
 
     // protected $with = ['shops'];
 

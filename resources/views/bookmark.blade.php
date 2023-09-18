@@ -30,22 +30,22 @@
                                         
                                     </thead>
                                     <tbody>
-                            @foreach($shops as $shop)
+                            @foreach($bookmark as $bookmarks)
                             <tr>
                             <th scope='col'>
-                            {{ $shop->name }}</th>
+                            {{ $bookmarks->name }}</th>
                             <th scope='col'>
-                            {{ $shop->adress }}</th>
+                            {{ $bookmarks->adress }}</th>
                             <th scope='col'>
-                            {{ $shop->image }}</th>
+                            {{ $bookmarks->image }}</th>
                             
                                 <th scope='col'>
-                                {{ $posts }} 
+                                
                                 </th>
                              
                             
                             <th scope='col'>
-                                <a href="{{ route('shop.detail',['shop'=>$shop['id']]) }}">詳細</a></th>
+                               </th>
                            
                             </tr>
                             @endforeach
