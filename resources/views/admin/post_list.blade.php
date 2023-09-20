@@ -33,16 +33,16 @@
                             <th scope='col' class='text-center'>{{ $comments->post_count }}</th>
                            
 
-                            @endforeach
+                            
                             <th scope='col'>
                            
-                            <form action="{{ route('admin.post.list.delete') }}" method="POST">
-                            @csrf
+                            <a href="{{ route('admin.post.list.delete',['id'=>$comments->id]) }}" >
+                        
                             
-                                <button type="submit" >非表示</button>
+                                <button type="submit" >非表示</button></a>
                                 
-                            </form></th>
-                            
+                            </th>
+                            @endforeach
                             </tr>
                             
                             </tbody>

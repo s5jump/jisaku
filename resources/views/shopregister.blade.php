@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
       <div class="col col-md-offset-3 col-md-6">
         <nav class="card mt-5">
-          <div class="card-header">新規登録</div>
+          <div class="card-header">店舗管理者新規登録</div>
           <div class="card-body">
             @if($errors->any())
               <div class="alert alert-danger">
@@ -14,9 +14,10 @@
                 @endforeach
               </div>
             @endif
+
             <form action="{{ route('register') }}" method="POST">
               @csrf
-              <input type="hidden" value="0" name="role">
+              <input type="hidden" value="2" name="role">
               <div class="form-group">
                 <label for="name">ユーザー名</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" />
@@ -37,24 +38,13 @@
                 <label for="image">アイコン写真</label>
                 <input type="file" class="form-control" id="image" name="image" />
               </div>
+
               
-       
-      
-             
+                </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">登録</button>
               </div>
             </form>
-
-            <div class="text-center">
-                
-                <a href="{{ route('admin.register') }}" >※管理者の方はこちらから</a>
-              </div>
-              <br>
-              <div class="text-center">
-                
-                <a href="{{ route('shop.register') }}" >※店舗管理者の方はこちらから</a>
-              </div>
           </div>
         </nav>
       </div>

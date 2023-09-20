@@ -17,6 +17,7 @@
 
             <form action="{{ route('admin.register') }}" method="POST">
               @csrf
+              <input type="hidden" value="1" name="role">
               <div class="form-group">
                 <label for="name">管理者名</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" />

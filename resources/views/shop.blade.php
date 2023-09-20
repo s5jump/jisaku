@@ -42,7 +42,7 @@
                             <br>
                             <label for='adress'>住所：{{ $shop->adress }}</label>
                             <br>
-                            <label for='review' class='mt-2'>レビュー点：</label>
+                            <label for='review' class='mt-2'>レビュー点：{{ $posts }} </label>
                             <br>
                             <label for='comment' class='mt-2'>コメント：{{ $shop->comment }}</label>
                             <br>
@@ -54,9 +54,9 @@
                                 <thead>
                                 <label for='image' class='mt-2'>ユーザーレビュー一覧
                                         <tr>
-                                            <th scope='col'>ユーザーID</th>
+                                            <th scope='col'></th>
                                            
-                                            <th scope='col'>タイトル</th>
+                                            <th scope='col'></th>
                                            
                                             <th scope='col'></th>
                                         </tr>
@@ -66,11 +66,11 @@
                             <tr>
                             
                            
-                            <th scope='col'>{{ $post->user_id }}
+                            <th scope='col'>
                             </th>
                           
                            
-                            <th scope='col'>{{ $post->title }}
+                            <th scope='col'>
 
                             </th>
                            

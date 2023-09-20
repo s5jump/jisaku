@@ -80,11 +80,16 @@ class RegistrationController extends Controller
         $bookmark_model=new Bookmark;
         $shop=Shop::where('id',$shop->id)->withCount('bookmarks')->first();
 
-        $post = Post::All();
+        $posts = \DB::table('posts') 
+            ->groupBy('shop_id') 
+            ->avg('review');
+
+        //$post = Post::All();
         return view('shop',[
             'shop'=>$shop,
             'bookmark_model'=>$bookmark_model,
-            'post'=>$post,
+            //'post'=>$post,
+            'posts'=>$posts,
         ]);
        
     }
@@ -121,50 +126,11 @@ class RegistrationController extends Controller
 
         return view('admin.toppage');
     }
-    //管理者　ユーザーリスト確認
-        function adminUserList(Post $post){
-            
-            return view('admin.user_list',[
-
-            ]);
-        }
-        //ユーザーリスト確認詳細
-        function adminUserListDetail(){
-            return view('admin.user_list_detail');
-        }
-        //投稿リスト
-        function adminPostList(Post $post){
-            //https://awesome-programmer.hateblo.jp/entry/2019/07/03/162835
-            $comment = \DB::table('comments')
-                ->join('posts', 'comments.post_id', '=', 'posts.id')
-                ->select(\DB::raw('count(*) as post_count, posts.id'))
-                ->groupBy('comments.id')
-                ->orderBy('post_count', 'desc')
-                ->limit(20)
-                ->get();
-
-                //dd($comment);
-            //$comment = Comment::orderBy('post_id', 'DESC')->take(20)->get();
-            return view('admin.post_list',[
-                'comment'=>$comment,
-               
-            ]);
-        }
-        //投稿非表示にする
-        public function adminPostListDeletes(Post $post){
-      
-           // $post =Post::find(Auth::id())->delete();
-           
-            return redirect('admin.post_list',[
-            ]);
-        }
-        //投稿リスト確認詳細
-        // function adminPostListDetail(Post $post){
-           
-        //     return view('admin.post_list_detail',[
-        //         'post'=>$posts,
-        //     ]);
-        // }
+    
+     
+       
+        
+        
     
 
                
@@ -228,6 +194,10 @@ class RegistrationController extends Controller
                     $shop->delete();
                 
                     return redirect('/');
+                }
+                //店舗管理者登録ページへ
+                public function shopRegister(){
+                    return view('shopregister');
                 }
         
 
@@ -355,10 +325,60 @@ class RegistrationController extends Controller
 
    
 
+    //管理者　ユーザーリスト
+       function adminUserList(Post $post){
+            // $record=$posts->find();
+            $count=Post::where('del_flg',1)->take(10)->get()->count();
+           $posts=Post::where('del_flg',1)->take(10)->get();
+           //dd($posts);
+            return view('admin.user_list',[
+                'posts'=>$posts,
+                'count'=>$count,
+                //'user_id' => $user_id,
+            ]);
+        }
+    //ユーザー利用停止にする
+    function adminUserListDeletes(User $user,int $id){
+        $record=$user->find($id);
+        //dd($record);
+        $record['del_flg']=1;
+       
+         $record->save();
+        return view('admin.toppage');
+    }
 
+    //投稿リスト
+    function adminPostList(Post $post){
+        //https://awesome-programmer.hateblo.jp/entry/2019/07/03/162835
+        $comment = \DB::table('comments')
+            ->join('posts', 'comments.post_id', '=', 'posts.id')
+            ->select(\DB::raw('count(*) as post_count, posts.id'))
+            ->groupBy('comments.id')
+            ->orderBy('post_count', 'desc')
+            ->limit(20)
+            ->get();
 
+            //dd($comment);
+        //$comment = Comment::orderBy('post_id', 'DESC')->take(20)->get();
+        return view('admin.post_list',[
+            'comment'=>$comment,
+           
+        ]);
+    }
 
+        //管理者　投稿非表示にする
+       
+        public function adminPostListDelete(Post $post,int $id){
+            $record=$post->find($id);
+          
+           $record['del_flg']=1;
+            //dd($record);
+            $record->save();
 
+            return view('admin.toppage',[
+            ]);
+        }
+       
 
 
     

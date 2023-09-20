@@ -23,13 +23,15 @@ class DisplayController extends Controller
 {
     public function index(Request $request){
        // $role = Auth::user()->role;
-
+       //$user=Auth::user();
+       //dd($user['del_flg']);
+        
        // $user_id = Auth::id();
         //検索 
         $keyword = $request->input('keyword');
         $review=$request->input('review');
 
-        $posts=Post::query();
+        $posts=Post::query()->where('del_flg',0);
         //DD($posts);
         //join https://qiita.com/kamome_susume/items/b37709e1ba29abacdbd9
         //$posts=Post::join('shops','posts.shop_id','=','shops.id');
@@ -51,12 +53,30 @@ class DisplayController extends Controller
        
        $posts=$posts->orderBy('created_at', 'desc')->get()->toArray();
        
-        return view('home',[
-            'posts'=>$posts,
-            'keyword'=>$keyword,
-            'review'=>$review,
-            //'role'=>$role,
-        ]);
+
+       if(!empty(Auth::user())){
+        $user=Auth::user();
+       //dd($user['del_flg']);
+            if($user['del_flg']==0){
+                return view('home',[
+                    'posts'=>$posts,
+                    'keyword'=>$keyword,
+                    'review'=>$review,
+                    //'role'=>$role,
+                ]);
+            }else{
+                return view('error');
+            }
+       }else{
+            return view('home',[
+                'posts'=>$posts,
+                'keyword'=>$keyword,
+                'review'=>$review,
+                //'role'=>$role,
+            ]);
+       }
+
+
     }
     
 
@@ -81,22 +101,26 @@ class DisplayController extends Controller
         //     ->groupBy('shop_id') 
         //     ->selectRaw('avg(review)') 
         //     ->get(); 
-        $posts = \DB::table('posts') 
-            ->groupBy('shop_id') 
-            ->avg('review');
+        // $posts = \DB::table('posts') 
+        //     ->groupBy('shop_id') 
+        //     ->avg('review');
             
 
-        //  $posts = \DB::table('posts') 
-        //     ->groupBy('shop_id') 
-        //     ->selectRaw('shop_id, avg(review)') 
-        //     ->get(); 
 
-        
+        // $posts =DB::table('posts')
+        //     ->select('shop_id')
+        //     ->selectRaw('AVG(review) as count_review')
+        //     ->groupBy('shop_id')
+        //     ->get();
+
+        // dd($posts);
+        // $shops=$shop->where('id',$post[]->shop_id)->first();
+        // dd($shops);
         
         
         return view('shop_information',[
             'shops'=>$shop,
-            'posts'=>$posts,
+            //'posts'=>$posts,
             
         ]);
        

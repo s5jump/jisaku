@@ -89,8 +89,8 @@ Route::get('/shop/{shop}',[RegistrationController::class,'shopDetail'])->name('s
         });
        
              //店舗管理者
-        // Route::get('/register/shop',[RegisterController::class,'create'])->name('register');
-        // Route::post('/register/shop',[RegisterController::class,'create']);
+        Route::get('/register/shop',[RegistrationController::class,'shopRegister'])->name('shop.register');
+         Route::post('/register/shop',[RegisterController::class,'create']);
         //店舗新規登録
         Route::get('/new/shop',[RegistrationController::class,'shopRegistration'])->name('shop.registration');
         Route::get('/new/shop',[RegistrationController::class,'shopNew'])->name('shop.new');
@@ -122,16 +122,14 @@ Route::group(['middleware' => ['admin.auth']], function () {
         Route::get('/login', 'admin\AdminLoginController@showForm');
         Route::post('/login', 'admin\AdminLoginController@login');
         //ユーザーリスト
-        Route::get('/admin/user_list',[RegistrationController::class,'adminUserList'])->name('admin.user.list');
-        //ユーザーリスト詳細
-        Route::get('/admin/user_list/detail',[RegistrationController::class,'adminUserListDetail'])->name('admin.user.list.detail');
+        Route::get('/admin/user/list',[RegistrationController::class,'adminUserList'])->name('admin.user.list');
+        //ユーザー利用停止にする
+        Route::get('/admin/user/list/{id}',[RegistrationController::class,'adminUserListDeletes'])->name('admin.user.list.delete');
         //投稿リスト
-        Route::get('/admin/post_list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
+        Route::get('/admin/post/list',[RegistrationController::class,'adminPostList'])->name('admin.post.list');
         //投稿非表示にする
-        Route::post('/admin/post_list',[RegistrationController::class,'adminPostListDeletes'])->name('admin.post.list.delete');
-        // //投稿リスト詳細
-        // Route::get('/admin/post_list/detail',[RegistrationController::class,'adminPostListDetail'])->name('admin.post.list.detail');
-
+        Route::get('/admin/post/list/{id}',[RegistrationController::class,'adminPostListDelete'])->name('admin.post.list.delete');
+        
     });
 
 

@@ -38,18 +38,21 @@
                             {{ $shop->adress }}</th>
                             <th scope='col'>
                             {{ $shop->image }}</th>
-                            
+                        
+                           @if($shop->shopavg($shop->id))
                                 <th scope='col'>
-                                {{ $posts }} 
+                                {{ $shop->shopavg($shop->id)->count_review }} 
                                 </th>
-                             
-                            
+                             @else
+                             <th scope='col'>---
+                             </th>
+                            @endif
                             <th scope='col'>
                                 <a href="{{ route('shop.detail',['shop'=>$shop['id']]) }}">詳細</a></th>
                            
                             </tr>
+                           
                             @endforeach
-                            
                            
                             </tbody>
                             </table>

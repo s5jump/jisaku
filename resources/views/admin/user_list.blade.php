@@ -14,7 +14,7 @@
                                 <table class='table'>
                                 <thead>
                                         <tr>
-                                            <th scope='col'>ユーザー名</th>
+                                            <th scope='col'>ユーザーID</th>
                                            
                                             <th scope='col'>非表示件数</th>
                                            
@@ -24,19 +24,23 @@
                                     <tbody>
                             
                             <tr>
-                
-                            <th scope='col'>
-                                
+                            @foreach($posts as $post)
+                            <th scope='col' class='text-center'>
+                           {{ $post->user_id }}
                             </th>
                           
                            
-                            <th scope='col'>
+                            <th scope='col' class='text-center'>
+                                {{ $count }}
                                 </th>
                             <th scope='col'>
-                                <a href="{{ route('admin.user.list.detail') }}">詳細</a></th>
+                            
+                            <a href="{{ route('admin.user.list.delete',['id'=>$post->id]) }}" >
+                            
+                                    <button type="submit" >利用停止する</button></a></th>
                             
                             </tr>
-                           
+                            @endforeach
                             </tbody>
                             </table>
                             </div>

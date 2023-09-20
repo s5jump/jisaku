@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 @section('content')
+
+
         <main class="py-4">
             <div class="row justify-content-around">
                 <div class="col-md-4">

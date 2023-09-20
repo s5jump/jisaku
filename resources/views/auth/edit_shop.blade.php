@@ -40,7 +40,7 @@
                            
                               
                         </div>
-                        </form>
+                       
                         <div class="text-right">
                             <a href="{{ route('edit.shop',['shop'=>$shop['id']]) }}">
                                 <button type='submit' class='btn btn-primary '>更新</button></a>
@@ -48,7 +48,7 @@
                             <a href="{{ route('shop.delete',['shop'=>$shop['id']]) }}">
                                 <button type="submit" class="btn btn-primary">削除</button></a>
                                 </div>
-                               
+                                </form>   
                     </div>
                     </div>
                 </div>
