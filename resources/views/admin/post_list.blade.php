@@ -14,39 +14,48 @@
                                 <table class='table'>
                                 <thead>
                                         <tr>
+                                            <th scope='col'>ユーザーID</th>
                                             <th scope='col'>投稿ID</th>
-                                           
+
+                                            <th scope='col'>投稿ユーザー</th>
+                                          
                                             <th scope='col'>違反報告件数</th>
-                                           
+                                         
+                                            
                                             <th scope='col'></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                            
-                            <tr>
-                            @foreach($comment as $comments)
+                                    
+                                        <tr>
+                                        @foreach($comment as $comments)
                            
-                            <th scope='col' class='text-center'>
-                            {{ $comments->id }}</a></th>
-                          
-                           
-                            <th scope='col' class='text-center'>{{ $comments->post_count }}</th>
-                           
+                                            <th scope='col' class='text-center'>
+                                            {{ $comments->user->id }}</th>
 
+                                            <th scope='col' class='text-center'>
+                                            {{ $comments->post_id }}</a></th>
+
+                                            <th scope='col' class='text-center'>
+                                            {{ $comments->user->name }}</a></th>
+                                        
+                                        
+                                            <th scope='col' class='text-center'>
+                                                {{ $comments->comment_count }}</th>
+                                            
+                                            <th scope='col'>
+                                        
+                                                <a href="{{ route('admin.post.list.delete',['id'=>$comments->id]) }}" >
+                                                <button type="submit" >非表示</button></a>
+                                                
+                                            </th>
+                                        
+                                        </tr>
                             
-                            <th scope='col'>
-                           
-                            <a href="{{ route('admin.post.list.delete',['id'=>$comments->id]) }}" >
-                        
-                            
-                                <button type="submit" >非表示</button></a>
+                                    </tbody>
+                                    @endforeach
+                                </table>
                                 
-                            </th>
-                            @endforeach
-                            </tr>
-                            
-                            </tbody>
-                            </table>
                             </div>
                         </div>
 

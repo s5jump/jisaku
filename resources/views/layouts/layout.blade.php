@@ -3,6 +3,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <style>
+        .app{
+            background-color: #ddd;
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -20,11 +25,12 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" >
             <div class="container">
+               
                 <div class='row justify-content-around mt-3'>
                    <a class="navbar-brand" href="{{ url('/') }}">
-                        飲食店（ロゴ）
+                       <b> 飲食店（ロゴ）</b>
                     </a>
         </div> 
 

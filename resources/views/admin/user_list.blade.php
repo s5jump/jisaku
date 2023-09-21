@@ -14,10 +14,11 @@
                                 <table class='table'>
                                 <thead>
                                         <tr>
-                                            <th scope='col'>ユーザーID</th>
-                                           
+                                            
+                                            <th scope='col'>ユーザー名</th>
+                                            <th scope='col'>メールアドレス</th>
                                             <th scope='col'>非表示件数</th>
-                                           
+                                            <th scope='col'>権限</th>
                                             <th scope='col'></th>
                                         </tr>
                                     </thead>
@@ -25,15 +26,29 @@
                             
                             <tr>
                             @foreach($posts as $post)
+                            
                             <th scope='col' class='text-center'>
-                           {{ $post->user_id }}
+                           {{ $post->user->name }}
                             </th>
-                          
+                            <th scope='col' class='text-center'>
+                           {{ $post->user->email }}
+                            </th>
                            
                             <th scope='col' class='text-center'>
                                 {{ $count }}
                                 </th>
-                            <th scope='col'>
+
+                                        <th scope='col' class='text-center'>
+                                        @if($post->user->role == 0)
+                                            一般
+                                        @elseif($post->user->role == 1)
+                                            管理者
+                                        @else
+                                            店舗管理者
+                                        @endif
+                                        </th>
+                                        <th scope='col'>
+                                
                             
                             <a href="{{ route('admin.user.list.delete',['id'=>$post->id]) }}" >
                             

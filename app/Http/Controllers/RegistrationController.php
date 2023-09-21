@@ -80,16 +80,10 @@ class RegistrationController extends Controller
         $bookmark_model=new Bookmark;
         $shop=Shop::where('id',$shop->id)->withCount('bookmarks')->first();
 
-        $posts = \DB::table('posts') 
-            ->groupBy('shop_id') 
-            ->avg('review');
-
         //$post = Post::All();
         return view('shop',[
             'shop'=>$shop,
             'bookmark_model'=>$bookmark_model,
-            //'post'=>$post,
-            'posts'=>$posts,
         ]);
        
     }
@@ -97,8 +91,8 @@ class RegistrationController extends Controller
     
     public function myPostDetails(Post $post){
        
-        //  $posts=Post::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
-       
+         $posts=Post::orderBy('created_at', 'desc')->where('user_id',Auth::id())->get();
+         
 
         return view('my_post_detail',[
             'posts'=>$post,
@@ -315,11 +309,13 @@ class RegistrationController extends Controller
 
     //ブックマーク一覧
     public function bookmarkForm(Bookmark $bookmark){
-        $bookmark = Bookmark::orderBy('created_at','desc');
-        $data = [
+        $bookmark = Bookmark::orderBy('created_at','desc')->where('user_id',Auth::id())->get();
+        //$shop=Shop::where('id',$shop->id)->withCount('bookmarks')->first();
+        //dd($bookmark[0]['shop']);
+        return view('bookmark',[
             'bookmark' => $bookmark,
-        ];
-        return view('bookmark',$data);
+            //'shop'=>$shop,
+        ]);
        }
     
 
@@ -330,7 +326,7 @@ class RegistrationController extends Controller
             // $record=$posts->find();
             $count=Post::where('del_flg',1)->take(10)->get()->count();
            $posts=Post::where('del_flg',1)->take(10)->get();
-           //dd($posts);
+           //dd($posts[0]['user']);
             return view('admin.user_list',[
                 'posts'=>$posts,
                 'count'=>$count,
@@ -350,18 +346,25 @@ class RegistrationController extends Controller
     //投稿リスト
     function adminPostList(Post $post){
         //https://awesome-programmer.hateblo.jp/entry/2019/07/03/162835
-        $comment = \DB::table('comments')
-            ->join('posts', 'comments.post_id', '=', 'posts.id')
-            ->select(\DB::raw('count(*) as post_count, posts.id'))
-            ->groupBy('comments.id')
-            ->orderBy('post_count', 'desc')
-            ->limit(20)
+        // $count = \DB::table('comments')
+        //     ->join('posts', 'comments.comments', '=', 'posts.id')
+        //     ->select(\DB::raw('count(*) as post_count, posts.id'))
+        //     ->groupBy('comments.id')
+        //     ->get();
+
+    //    $comment = Comment::orderBy('post_id', 'DESC')->take(20)->get();
+    //     $count=Comment::where('post_id', 2)->get()->count();
+            //https://qiita.com/naoqoo2/items/ef53ae0cc926c287b9ed#:~:text=%E3%83%AA%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%85%88%E3%81%AE%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E6%95%B0%E3%81%A7%E3%82%BD%E3%83%BC%E3%83%88%E3%81%97%E3%81%9F%E3%81%84withCount,%28%27%E3%83%AA%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%90%8D%27%29%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%97%E3%81%A6%E3%83%AA%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%90%8D_count%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8B%E3%80%82
+    $comment=Post::withCount('comment')
+            ->orderBy('comment_count', 'desc')
+            ->take(20)
             ->get();
 
-            //dd($comment);
-        //$comment = Comment::orderBy('post_id', 'DESC')->take(20)->get();
+        
+        //dd($comment[0]['post']);
         return view('admin.post_list',[
             'comment'=>$comment,
+            //'count'=>$count,
            
         ]);
     }

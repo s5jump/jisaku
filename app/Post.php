@@ -14,12 +14,17 @@ class Post extends Model
 
     protected $fullable=['title','review','comment','image','shop_id'];
 
+    public function user()
+    {   //usersテーブルとのリレーションを定義するuserメソッド
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function shop(){
         return $this->belongsTo('App\Shop');
     }
 
     public function comment(){
-        return $this->belongsTo('App\Comment','id');
+        return $this->hasMany('App\Comment');
     }
 
     public function bookmark()

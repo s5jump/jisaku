@@ -23,7 +23,7 @@
                                             <th scope='col'>店名</th>
                                             <th scope='col'>住所</th>
                                             <th scope='col'>店舗写真</th>
-                                            <th scope='col'>平均レビュー点</th>
+                                           
                                             
                                             <th scope='col'></th>
                                         </tr>
@@ -33,22 +33,19 @@
                             @foreach($bookmark as $bookmarks)
                             <tr>
                             <th scope='col'>
-                            {{ $bookmarks->name }}</th>
+                            {{ $bookmarks->shop->name }}</th>
                             <th scope='col'>
-                            {{ $bookmarks->adress }}</th>
+                            {{ $bookmarks->shop->adress }}</th>
                             <th scope='col'>
-                            {{ $bookmarks->image }}</th>
+                            {{ $bookmarks->shop->image }}</th>
                             
                                 <th scope='col'>
                                 
                                 </th>
                              
+                                @endforeach
                             
-                            <th scope='col'>
-                               </th>
                            
-                            </tr>
-                            @endforeach
                             
                            
                             </tbody>

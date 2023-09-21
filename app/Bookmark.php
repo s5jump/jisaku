@@ -8,17 +8,18 @@ class Bookmark extends Model
 {
     public function user()
     {   //usersテーブルとのリレーションを定義するuserメソッド
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\User');
     }
 
     public function post()
     {  
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo('App\Post');
+       
     }
 
     public function shop()
     {  
-        return $this->belongsTo(Shop::class);
+        return $this->belongsTo('App\Shop');
     }
 
     public function bookmark_exist($user_id,$shop_id){

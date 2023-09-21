@@ -42,7 +42,15 @@
                             <br>
                             <label for='adress'>住所：{{ $shop->adress }}</label>
                             <br>
-                            <label for='review' class='mt-2'>レビュー点：{{ $posts }} </label>
+                            <label for='review' class='mt-2'>レビュー点：
+                                 @if($shop->shopavg($shop->id))
+                                
+                                {{ $shop->shopavg($shop->id)->count_review }} 
+                                
+                             @else
+                             ---
+                             
+                            @endif</label>
                             <br>
                             <label for='comment' class='mt-2'>コメント：{{ $shop->comment }}</label>
                             <br>
@@ -50,20 +58,7 @@
                             
                             
                             <br>
-                            <table class='table'>
-                                <thead>
-                                <label for='image' class='mt-2'>ユーザーレビュー一覧
-                                        <tr>
-                                            <th scope='col'></th>
-                                           
-                                            <th scope='col'></th>
-                                           
-                                            <th scope='col'></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
                             
-                            <tr>
                             
                            
                             <th scope='col'>
