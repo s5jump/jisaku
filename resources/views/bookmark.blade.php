@@ -23,7 +23,7 @@
                                             <th scope='col'>店名</th>
                                             <th scope='col'>住所</th>
                                             <th scope='col'>店舗写真</th>
-                                           
+                                            <th scope='col'></th>
                                             
                                             <th scope='col'></th>
                                         </tr>
@@ -37,12 +37,18 @@
                             <th scope='col'>
                             {{ $bookmarks->shop->adress }}</th>
                             <th scope='col'>
+                                
                             {{ $bookmarks->shop->image }}</th>
                             
                                 <th scope='col'>
                                 
                                 </th>
-                             
+                                <th scope='col'>
+                                <a href="{{ route('bookmark.detail',['bookmark'=>$bookmarks['id']]) }}">詳細</a></th>
+                           
+                            </tr>
+
+
                                 @endforeach
                             
                            

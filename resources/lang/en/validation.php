@@ -30,7 +30,7 @@ return [
         'array' => 'The :attribute must have between :min and :max items.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
-    'confirmed' => 'The :attribute confirmation does not match.',
+    'confirmed' => ':attribute欄が合っていません.',
     'date' => 'The :attribute is not a valid date.',
     'date_equals' => 'The :attribute must be a date equal to :date.',
     'date_format' => 'The :attribute does not match the format :format.',
@@ -147,7 +147,13 @@ return [
     */
 
     'attributes' => [
-        
+        'name'=>'名前',
+        'email'=>'メールアドレス',
+        'password'=>'パスワード',
+        'title'=>'タイトル',
+        'review'=>'レビュー点',
+        'comment'=>'コメント',
+        'adress'=>'住所',
     ],
 
 ];

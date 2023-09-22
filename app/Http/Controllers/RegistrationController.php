@@ -135,6 +135,13 @@ class RegistrationController extends Controller
                 }
                 public function shopNews(Shop $shop,Request $request){
                     $record=$shop;
+
+                    //https://progtext.net/programming/laravel-validation/
+                    $request->validate([
+                        'name' => ['required', 'string','max:255'],
+                        'adress' => ['required','max:255'],
+                        'comment'=>['max:255','required'],
+                    ]);
                
                     $shop->name=$request->name;
                     $shop->adress=$request->adress;
@@ -171,6 +178,12 @@ class RegistrationController extends Controller
                 public function editShop(Shop $shop, Request $request){
                     $record=$shop;
         
+                    $request->validate([
+                        'name' => ['required', 'string','max:255'],
+                        'adress' => ['required','max:255'],
+                        'comment'=>['max:255','required'],
+                    ]);
+
                     $shop->name=$request->name;
                     $shop->adress=$request->adress;
                     $shop->comment=$request->comment;
@@ -205,6 +218,13 @@ class RegistrationController extends Controller
 
     public function createPost(Request $request){
         $post=new Post;
+
+        $request->validate([
+            'title' => ['required', 'string','max:255'],
+            'review' => ['required'],
+            'comment'=>['max:255','required'],
+        ]);
+
         //var_dump($request->all());
         $columns=['title','comment','image'];
         foreach($columns as $column){
@@ -232,7 +252,7 @@ class RegistrationController extends Controller
         ]);
     }
 
-    public function editPost(Post $post, Request $request){
+    public function editPost(Post $post, CreateData $request){
         $record=$post;
 
         $columns=['title','comment','image'];
@@ -315,6 +335,13 @@ class RegistrationController extends Controller
         return view('bookmark',[
             'bookmark' => $bookmark,
             //'shop'=>$shop,
+        ]);
+       }
+
+       public function bookmarkDetail(Bookmark $bookmark){
+        //dd($bookmark['shop']);
+        return view('bookmark_detail',[
+            'bookmark'=>$bookmark,
         ]);
        }
     

@@ -54,7 +54,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/ajaxbookmark',[RegistrationController::class,'bookmark'])->name('bookmark');
     //ブックマーク一覧
     Route::get('/bookmark',[RegistrationController::class,'bookmarkForm'])->name('bookmark.form');
-
+    //ブックマーク一覧詳細
+    Route::get('/bookmark/{bookmark}',[RegistrationController::class,'bookmarkDetail'])->name('bookmark.detail');
         
 
 
