@@ -77,6 +77,8 @@ Route::get('/shop/{shop}',[RegistrationController::class,'shopDetail'])->name('s
        
         //店舗管理者店舗情報
         Route::get('/home/shop',[RegistrationController::class,'shopHome'])->name('shop.home');
+        //自店舗に寄せられたレビュー一覧
+        Route::get('/home/shop/review/{shop}',[RegistrationController::class,'shopHomeReview'])->name('shop.home.review');
 
        //店舗編集
        Route::get('/edit/shop/{shop}',[RegistrationController::class,'editShopForm'])->name('edit.shop');

@@ -7,17 +7,18 @@
         <nav class="card mt-5">
           <div class="card-header">違反報告</div>
           <div class="card-body">
+          <form action="{{ route('breach')}}" method="post">
+                            @csrf
           
               <div class="form-group">
                 <label for="text">理由</label>
                 <input type="text" class="form-control" id="text" name="text" />
               </div>
               
-             
-              <form action="{{ route('breach')}}" method="post">
-                            @csrf
+              <div class="text-right">
+              
         
-        <div class="text-right">
+        
                 <button type="submit" class="btn btn-primary">報告する</button>
               </div>
             </form>

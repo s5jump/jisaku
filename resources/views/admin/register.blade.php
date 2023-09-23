@@ -15,7 +15,7 @@
               </div>
             @endif
 
-            <form action="{{ route('admin.register') }}" method="POST">
+            <form action="{{ route('admin.register') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <input type="hidden" value="1" name="role">
               <div class="form-group">

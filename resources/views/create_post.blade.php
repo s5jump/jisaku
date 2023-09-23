@@ -20,8 +20,10 @@
                             </div>
                             @endif
                         </div>
+
+                        
                                 
-                            <form action="{{ route('create.post')}}" method="post">
+                            <form action="{{ route('create.post')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <label for='title'>タイトル</label>
                                 <input type='text' class='form-control' name='title' value="{{ old('title')}}"/>

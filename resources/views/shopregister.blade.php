@@ -15,7 +15,7 @@
               </div>
             @endif
 
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <input type="hidden" value="2" name="role">
               <div class="form-group">
@@ -36,7 +36,7 @@
               </div>
               <div class="form-group">
                 <label for="image">アイコン写真</label>
-                <input type="file" class="form-control" id="image" name="image" />
+                <input type="file" class="form-control" id="image" name="image"/>
               </div>
 
               

@@ -167,6 +167,19 @@ class RegistrationController extends Controller
                         'shops'=>$shops,
                     ]);
                 }
+
+                //自店舗に寄せられたレビュー一覧
+                public function shopHomeReview(Post $post){
+                   // $shop_id=$request->input('shop_id');
+                   //$shop_id=$request->shop_id;
+                   
+                    $post=Post::orderBy('created_at', 'desc')->where('shop_id',3)->get();
+                    //dd($post);
+                    // $post=Post::all();
+                    return view('shop_review',[
+                        'post'=>$post,
+                    ]);
+                }
                 //店舗編集
                 public function editShopForm(Shop $shop){
                     
@@ -221,9 +234,21 @@ class RegistrationController extends Controller
 
         $request->validate([
             'title' => ['required', 'string','max:255'],
-            'review' => ['required'],
+            //'review' => ['required'],
             'comment'=>['max:255','required'],
+            //'image' => ['file'],
         ]);
+
+        //https://biz.addisteria.com/image-upload/
+        //dd($request-> file('image'));
+         // 画像ファイルの保存場所指定
+        //  if(request('image')){
+        //     $filename=request()->file('image')->getClientOriginalName();
+        //     $inputs['image']=request('image')->storeAs('public/images', $filename);
+        // }
+
+        // postを保存
+        //$post->create($inputs);
 
         //var_dump($request->all());
         $columns=['title','comment','image'];
@@ -237,7 +262,7 @@ class RegistrationController extends Controller
         //$shop=Shop::where('id',$shop->id)
         //右はどの値を入れるか
         
-        //Auth::user()->post()->save($post);
+        
         $post->save();
 
         return redirect('/');
@@ -276,16 +301,21 @@ class RegistrationController extends Controller
     }
 
    //違反報告
-   public function breachForm(){
-    return view ('breach');
+   public function breachForm(Post $post){
+    return view ('breach',[
+        'post'=>$post,
+    ]);
    }
 
-   public function breach(Comment $comment, Request $request){
+   public function breach(Request $request){
     $comment=new Comment;
 
     $comment->text=$request->text;
     $comment->user_id=Auth::id();
-    $comment->post_id=Auth::id();
+    $comment->post_id=1;
+    
+    
+    //dd($comment);
     
 
     $comment->save();

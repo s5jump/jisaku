@@ -20,14 +20,24 @@
                             <br>
                             <label for='adress'>住所：{{ $shop['adress'] }}</label>
                             <br>
-                            <label for='review' class='mt-2'>平均レビュー点：</label>
+                            <label for='review' class='mt-2'>平均レビュー点：
+                            @if($shop->shopavg($shop->id))
+                                
+                                {{ $shop->shopavg($shop->id)->count_review }} 
+                               
+                             @else
+                             ---
+                             
+                            @endif
+                            </label>
                             <br>
                             <label for='adress'>店舗紹介・メニュー紹介：{{ $shop['comment'] }}</label>
                             <br>
                             <label for='image' class='mt-2'>店舗写真：{{ $shop['image'] }}</label>
                     
                             <br>
-                            <label for='' class='mt-2'>ユーザーレビュー一覧</label>
+                            <a href="{{ route('shop.home.review',['shop'=>$shop['id']]) }}">
+                            <label for='' class='mt-2'>レビュー一覧</label></a>
                             </div>
                              
                             <div class='text-right'>

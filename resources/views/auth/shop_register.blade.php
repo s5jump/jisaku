@@ -14,7 +14,7 @@
                 @endforeach
               </div>
             @endif
-            <form action="{{ route('shop.register') }}" method="POST">
+            <form action="{{ route('shop.register') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
                 <label for="name">ユーザー名</label>

@@ -21,14 +21,14 @@
                             @endif
                         </div>
                                 
-                        <form action="{{ route('edit.post',['post'=>$posts['id']]) }}" method="post">
+                        <form action="{{ route('edit.post',['post'=>$posts['id']]) }}" method="post" >
                             @csrf
                             <label for='title'>タイトル</label>
                                 <input type='text' class='form-control' name='title' value="{{ old('title',$posts->title)}}"/>
 
                             <label for='review' class='mt-2'>レビュー点</label>
                             <select name='review_id' class='form-control'>
-                            <option value='' hidden>点</option>
+                            <option value="{{ old('review_id',$posts->review_id) }}" hidden>点</option>
                                 @foreach(Config::get('pulldown.review') as $key => $val)
                                 <option value="{{ $key }}" >{{ $val }}</option>
                                 @endforeach
