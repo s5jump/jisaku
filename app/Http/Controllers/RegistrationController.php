@@ -169,12 +169,10 @@ class RegistrationController extends Controller
                 }
 
                 //自店舗に寄せられたレビュー一覧
-                public function shopHomeReview(Post $post){
-                   // $shop_id=$request->input('shop_id');
-                   //$shop_id=$request->shop_id;
+                public function shopHomeReview(Post $post, $shop){
                    
-                    $post=Post::orderBy('created_at', 'desc')->where('shop_id',3)->get();
-                    //dd($post);
+                    $post=Post::orderBy('created_at', 'desc')->where('shop_id',$shop)->get();
+                   
                     // $post=Post::all();
                     return view('shop_review',[
                         'post'=>$post,
@@ -234,7 +232,7 @@ class RegistrationController extends Controller
 
         $request->validate([
             'title' => ['required', 'string','max:255'],
-            //'review' => ['required'],
+            'review' => ['required'],
             'comment'=>['max:255','required'],
             //'image' => ['file'],
         ]);
@@ -255,7 +253,7 @@ class RegistrationController extends Controller
         foreach($columns as $column){
             $post->$column=$request->$column;
         }
-        $post->review=$request->review_id;
+        $post->review=$request->review;
         
         $post->user_id=Auth::id();
         $post->shop_id=1;
@@ -284,7 +282,7 @@ class RegistrationController extends Controller
         foreach($columns as $column){
             $record->$column=$request->$column;
         }
-        $record->review=$request->review_id;
+        $record->review=$request->review;
         $post->user_id=Auth::id();
         $post->shop_id=1;
        
@@ -412,10 +410,10 @@ class RegistrationController extends Controller
     //    $comment = Comment::orderBy('post_id', 'DESC')->take(20)->get();
     //     $count=Comment::where('post_id', 2)->get()->count();
             //https://qiita.com/naoqoo2/items/ef53ae0cc926c287b9ed#:~:text=%E3%83%AA%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%85%88%E3%81%AE%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E6%95%B0%E3%81%A7%E3%82%BD%E3%83%BC%E3%83%88%E3%81%97%E3%81%9F%E3%81%84withCount,%28%27%E3%83%AA%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%90%8D%27%29%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%97%E3%81%A6%E3%83%AA%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%90%8D_count%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8B%E3%80%82
-    $comment=Post::withCount('comment')
-            ->orderBy('comment_count', 'desc')
-            ->take(20)
-            ->get();
+            $comment=Post::withCount('comment')
+                ->orderBy('comment_count', 'desc')
+                ->take(20)
+                ->get();
 
         
         //dd($comment[0]['post']);

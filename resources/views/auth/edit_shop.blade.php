@@ -27,7 +27,7 @@
                                 <input type='text' class='form-control' name='name' value="{{ old('name',$shop->name)}}"/>
                             <label for='adress'>店舗名</label>
                                 <input type='text' class='form-control' name='adress' value="{{ old('adress',$shop->adress)}}"/>
-                            <label for='review' class='mt-2'>平均レビュー点</label>
+                            
                             
 
                             <label for='comment' class='mt-2'>店舗紹介・メニュー紹介</label>

@@ -27,9 +27,10 @@
                                 <input type='text' class='form-control' name='title' value="{{ old('title',$posts->title)}}"/>
 
                             <label for='review' class='mt-2'>レビュー点</label>
-                            <select name='review_id' class='form-control'>
-                            <option value="{{ old('review_id',$posts->review_id) }}" hidden>点</option>
+                            <select name='review' class='form-control'>
+                           
                                 @foreach(Config::get('pulldown.review') as $key => $val)
+                                <option value="" hidden>{{ old('review',$posts->review) }}</option>
                                 <option value="{{ $key }}" >{{ $val }}</option>
                                 @endforeach
                             </select>

@@ -18,14 +18,21 @@
                                     <div class="form-group">
                                     
                                     <input type="search" class="form-control mr-sm-2" name="keyword"  value="{{ $keyword }}" placeholder="タイトル　内容　地域" aria-label="検索...">
-                                  
+                                    
                                     <select class='form-control mr-sm-2'  name='review' value="{{ $review }}">
+                                    @foreach(Config::get('pulldown.review') as $key => $val)
+                                    @if(!isset($review))
                                         <option value='' hidden>点</option> 
-                                        @foreach(Config::get('pulldown.review') as $key => $val)
+                                    @else
+                                        <option value="" hidden>{{ old('review',$review) }}</option>
+                                        @endif
+                                       
                                         <option value="{{ $key }}" >{{ $val }}</option>
                                         @endforeach
                                     </select>
-
+                                    
+                                       
+                                    
                                    
                                     
                                     <input type="submit" value="検索" class="btn btn-info">

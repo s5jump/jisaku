@@ -15,9 +15,9 @@
                                 <thead>
                                         <tr>
                                             <th scope='col'>ユーザーID</th>
+                                            <th scope='col'>投稿ユーザー</th>
                                             <th scope='col'>投稿タイトル</th>
 
-                                            <th scope='col'>投稿ユーザー</th>
                                           
                                             <th scope='col'>違反報告件数</th>
                                          
@@ -34,10 +34,12 @@
                                             {{ $comments->user->id }}</th>
 
                                             <th scope='col' class='text-center'>
-                                            {{ $comments->title }}</a></th>
+                                            {{ $comments->user->name }}</th>
 
                                             <th scope='col' class='text-center'>
-                                            {{ $comments->user->name }}</a></th>
+                                            {{ $comments->title }}</th>
+
+                                           
                                         
                                         
                                             <th scope='col' class='text-center'>
